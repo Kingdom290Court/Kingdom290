@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Cores do Reino --- */
+  --color-kingdom-black: #0a0a0a;
+  --color-kingdom-dark: #111111;
+  --color-kingdom-gold: #c5a059;
+  --color-kingdom-goldDim: #8a703e;
+  --color-kingdom-silver: #e5e5e5;
+  --color-kingdom-blood: #8b0000;
+  --color-kingdom-bloodLight: #a51b1b;
+
+  /* --- Tipografia --- */
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* --- Backgrounds --- */
+  --background-image-royal-gradient: radial-gradient(circle at center top, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+/* --- Estilos Globais e Utilitários --- */
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-kingdom-black); 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-kingdom-gold); 
+    border-radius: 4px;
+}
+
+/* Glassmorphism e Utilitários de UI */
+.glass-card {
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.input-medieval {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid #444;
+    color: var(--color-kingdom-gold);
+    transition: all 0.3s ease;
+}
+
+.input-medieval:focus {
+    border-color: var(--color-kingdom-gold);
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+    outline: none;
+}
+
+.gold-glow {
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
+}
+
+.checkbox-wrapper input:checked + div {
+    background-color: var(--color-kingdom-blood);
+    border-color: var(--color-kingdom-gold);
+}
+
+/* Transições Vue */
+.list-enter-active, .list-leave-active {
+    transition: all 0.4s ease;
+}
+.list-enter-from, .list-leave-to {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+}
