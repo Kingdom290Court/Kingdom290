@@ -166,8 +166,7 @@
                     </div>
                     <div class="text-xs text-gray-500 mt-1">
                       <div v-if="item.isMixed">
-                         <span class="text-kingdom-bloodLight">{{ item.breakdown.prod }} Refs</span> + 
-                         <span class="text-blue-400">{{ item.breakdown.rez }} Ress</span>
+                         <span class="text-gray-400 text-[10px] uppercase tracking-wider">Base de Cálculo Mista (25/75)</span>
                       </div>
                       <div v-else class="text-[10px] uppercase text-gray-600">
                         Custo Fixo / Geral
@@ -195,7 +194,7 @@
              </div>
              <button @click="copyReport" v-if="cart.length > 0"
                     class="mt-4 w-full bg-kingdom-blood hover:bg-kingdom-bloodLight text-white font-display uppercase text-sm tracking-widest py-3 rounded border border-transparent hover:border-kingdom-gold transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
-                <span v-if="!showCopied">Copiar Sentença</span>
+                <span v-if="!showCopied">Copiar Nota Fiscal</span>
                 <span v-else>Copiado!</span>
                 <i class="fa-solid" :class="showCopied ? 'fa-check' : 'fa-scroll'"></i>
              </button>
@@ -315,7 +314,6 @@ const addToCart = () => {
 
     let name = '';
     let isMixed = false;
-    let breakdown = { prod: 0, rez: 0 };
 
     if (selectedCategoryKey.value === 'general') {
         name = currentGeneralInfraction.value.label;
@@ -324,8 +322,6 @@ const addToCart = () => {
         // Se tiver ambos os custos, é misto
         if (currentUnit.value.cost !== null && currentUnit.value.rez_cost !== null) {
             isMixed = true;
-            breakdown.prod = qty.value * 0.25;
-            breakdown.rez = qty.value * 0.75;
         }
     }
 
@@ -334,8 +330,7 @@ const addToCart = () => {
         name: name,
         qty: qty.value,
         totalValue: previewCalculatedValue.value,
-        isMixed: isMixed,
-        breakdown: breakdown
+        isMixed: isMixed
     });
 };
 
@@ -345,22 +340,39 @@ const copyReport = () => {
   const date = new Date().toLocaleDateString('pt-BR');
   const totalFormatted = formatCurrency(finalTotal.value);
   
+  // Formatando os itens como linhas de "Nota"
   let itemsList = cart.value.map(item => {
-    let desc = `- ${item.qty}x ${item.name}`;
-    
-    if (item.isMixed) {
-        // Adiciona detalhes do cálculo misto
-        desc += ` (75% Rez + 25% Prod)`;
-    }
-    desc += ` = ${formatCompact(item.totalValue)}`;
-    return desc;
+    const detail = item.isMixed ? '(Misto 25/75)' : '';
+    return `[${item.qty}] ${item.name} ${detail}\n    Valor: ${formatCompact(item.totalValue)}`;
   }).join('\n');
 
-  let details = '';
-  if(isTop100.value) details += `\n\n⚠️ **Agravante Top 100:** x2`;
-  if(isTribunal.value) details += `\n⚖️ **Agravante Tribunal:** x2`;
+  // Formatando os status de agravantes
+  const statusTop100 = isTop100.value ? "SIM (+100%)" : "NAO";
+  const statusTribunal = isTribunal.value ? "SIM (+100%)" : "NAO";
 
-  const report = `📜 **SENTENÇA REAL - REINO #290** 📜\nData: ${date}\n\n**DETALHAMENTO:**\n${itemsList}\n-------------------------\n**Subtotal:** ${formatCompact(totalBase.value)}${details}\n\n💰 **VALOR TOTAL:**\n👉 ${totalFormatted} PRATA\n\n_O não pagamento resultará em execução pela Guarda Real._`;
+  // Montando a "Nota Fiscal"
+  const report = `
+========================================
+      REINO #290 - NOTA DE DEBITO
+========================================
+DATA: ${date}
+
+DETALHAMENTO DOS ITENS:
+----------------------------------------
+${itemsList}
+----------------------------------------
+SUBTOTAL: ${formatCompact(totalBase.value)}
+
+AGRAVANTES / TAXAS:
+> Infrator Top 100: ${statusTop100}
+> Litigio Tribunal: ${statusTribunal}
+
+========================================
+TOTAL A PAGAR:  ${totalFormatted} PRATA
+========================================
+OBS: Pagamento imediato solicitado para
+evitar sancoes da Guarda Real.
+`.trim();
 
   navigator.clipboard.writeText(report).then(() => {
     showCopied.value = true;
