@@ -58,7 +58,7 @@ This project was built using the modern Vue ecosystem:
 1. Clone the repository:
     
     ```
-    git clone [https://github.com/YOUR-USERNAME/Kingdom290.git](https://github.com/YOUR-USERNAME/Kingdom290.git)
+    git clone [https://github.com/Kingdom290Court/Kingdom290.git](https://github.com/Kingdom290Court/Kingdom290.git)
     cd Kingdom290
     ```
     
@@ -112,7 +112,7 @@ To deploy a new version:
     npm run deploy
     ```
     
-3. The site will be available at `https://YOUR-USERNAME.github.io/Kingdom290/`.
+3. The site will be available at `https://kingdom290court.github.io/Kingdom290/`.
     
 
 ## 🤝 Contribution
