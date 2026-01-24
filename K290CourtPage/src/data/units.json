@@ -111,7 +111,50 @@
       "tier": "T5",
       "units": [
         { "unit": "T5 Swordsmen", "cost": 1100, "rez_cost": 40 },
-        { "unit": "T5 Spies", "cost": 5500, "rez_cost": 200 }
+        { "unit": "T5 Spies", "cost": 5500, "rez_cost": 200 },
+        { "unit": "T5 Deadshots", "cost": 1100, "rez_cost": 40 },
+        { "unit": "T5 Lion riders", "cost": 2200, "rez_cost": 80 },
+        { "unit": "T5 Vultures", "cost": 1100, "rez_cost": 40 }
+      ]
+    },
+    {
+      "tier": "T6",
+      "units": [
+        { "unit": "T6 Deadshots", "cost": 1300, "rez_cost": 40 },
+        { "unit": "T6 Lion Riders", "cost": 2600, "rez_cost": 80 },
+        { "unit": "T6 Vultures", "cost": 1300, "rez_cost": 40 },
+        { "unit": "T6 Heavy Knight", "cost": 1300, "rez_cost": 40 },
+        { "unit": "T6 Swift jaeger", "cost": 6500, "rez_cost": 200 }
+      ]
+    },
+    {
+      "tier": "T7",
+      "units": [
+        { "unit": "T7 Deadshots", "cost": 1500, "rez_cost": 40 },
+        { "unit": "T7 Lion Riders", "cost": 3000, "rez_cost": 200 },
+        { "unit": "T7 Vultures", "cost": 1500, "rez_cost": 40 },
+        { "unit": "T7 Heavy Knight", "cost": 1500, "rez_cost": 40 },
+        { "unit": "T7 Swift Jaeger", "cost": 7500, "rez_cost": 200 }
+      ]
+    },
+    {
+      "tier": "Especial I",
+      "units": [
+        { "unit": "TI Legitimist", "cost": 1700, "rez_cost": 40 },
+        { "unit": "TI Duelist", "cost": 1700, "rez_cost": 40 },
+        { "unit": "TI Whitemane", "cost": 3400, "rez_cost": 80 },
+        { "unit": "TI Royal lion", "cost": 34000, "rez_cost": 800 },
+        { "unit": "TI Panoptic", "cost": 8500, "rez_cost": 200 }
+      ]
+    },
+    {
+      "tier": "Especial II",
+      "units": [
+        { "unit": "TII Legitimist", "cost": 1900, "rez_cost": 40 },
+        { "unit": "TII Duelist", "cost": 1900, "rez_cost": 40 },
+        { "unit": "TII Whitemane", "cost": 3800, "rez_cost": 80 },
+        { "unit": "TII Royal lion", "cost": 38000, "rez_cost": 800 },
+        { "unit": "TII Panoptic", "cost": 9500, "rez_cost": 200 }
       ]
     }
   ],
@@ -176,7 +219,18 @@
       "tier": "T5",
       "units": [
         { "unit": "T5 Desert Vanquisher", "cost": 87900, "rez_cost": 3200 },
-        { "unit": "T5 Flaming Centaur", "cost": 92400, "rez_cost": 3360 }
+        { "unit": "T5 Flaming Centaur", "cost": 92400, "rez_cost": 3360 },
+        { "unit": "T5 Ettin", "cost": 101130, "rez_cost": 3680 },
+        { "unit": "T5 Fearsome Manticore", "cost": 96760, "rez_cost": 3520 }
+      ]
+    },
+    {
+      "tier": "T6",
+      "units": [
+        { "unit": "T6 Crystal Dragon", "cost": 171600, "rez_cost": 5280 },
+        { "unit": "T6 Frost Dragon", "cost": 182000, "rez_cost": 5600 },
+        { "unit": "T6 Shadow Demon", "cost": 156000, "rez_cost": 4800 },
+        { "unit": "T6 War Chimera", "cost": 176000, "rez_cost": 5440 }
       ]
     }
   ],
@@ -184,16 +238,82 @@
     {
       "tier": "T5",
       "units": [
-        { "unit": "T5 Swift Marksman", "cost": 75000, "rez_cost": 80 },
-        { "unit": "T5 Scorpion", "cost": 750000, "rez_cost": 800 },
-        { "unit": "T5 Gargoyle", "cost": 1411765, "rez_cost": 1500 },
+        { "unit": "T5 Swift Marksman", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T5 Scorpion", "cost": 800000, "rez_cost": 800 },
+        { "unit": "T5 Gargoyle", "cost": 1500000, "rez_cost": 1500 },
         { "unit": "T5 Bear", "cost": 1600000, "rez_cost": 1600 },
-        { "unit": "T5 Unicorn Rider", "cost": null, "rez_cost": 2000 },
-        { "unit": "T5 Bull Rider", "cost": null, "rez_cost": 2200 },
-        { "unit": "T5 Giant Zombie", "cost": null, "rez_cost": 2500 },
-        { "unit": "T5 Scorpion Rider", "cost": 2666667, "rez_cost": 2800 },
-        { "unit": "T5 Ifrit", "cost": null, "rez_cost": 3300 },
-        { "unit": "T5 Cyclops", "cost": 3428571, "rez_cost": 3400 }
+        { "unit": "T5 Unicorn Rider", "cost": 2000000, "rez_cost": 2000 },
+        { "unit": "T5 Bull Rider", "cost": 2200000, "rez_cost": 2200 },
+        { "unit": "T5 Giant Zombie", "cost": 2500000, "rez_cost": 2500 },
+        { "unit": "T5 Scorpion Rider", "cost": 2800000, "rez_cost": 2800 },
+        { "unit": "T5 Ifrit", "cost": 3300000, "rez_cost": 3300 },
+        { "unit": "T5 Cyclops", "cost": 3400000, "rez_cost": 3400 },
+        { "unit": "T5 Fireworm Rider", "cost": 3800000, "rez_cost": 3800 }
+      ]
+    },
+    {
+      "tier": "T6",
+      "units": [
+        { "unit": "T6 Arbalester / Trailseeker", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T6 Legionary / Knight", "cost": 900000, "rez_cost": 900 },
+        { "unit": "T6 Chariot / Rhino Rider", "cost": 1600000, "rez_cost": 1600 },
+        { "unit": "T6 Sphinx / Shedu", "cost": 1700000, "rez_cost": 1700 },
+        { "unit": "T6 Pathfinder / Pionnier", "cost": 400000, "rez_cost": 400 },
+        { "unit": "T6 Trebuchet", "cost": 2300000, "rez_cost": 2300 },
+        { "unit": "T6 Death Chariots", "cost": 2600000, "rez_cost": 2600 },
+        { "unit": "T6 Bone Golem", "cost": 2900000, "rez_cost": 2900 },
+        { "unit": "T6 Ent", "cost": 3400000, "rez_cost": 3400 },
+        { "unit": "T6 Cursed Dendroids", "cost": 3500000, "rez_cost": 3500 }
+      ]
+    }
+  ],
+  "captains": [
+    {
+      "tier": "Mythical",
+      "units": [
+        { "unit": "Heimdall", "cost": 0, "rez_cost": 50 },
+        { "unit": "Skadi", "cost": 0, "rez_cost": 50 },
+        { "unit": "Beowulf", "cost": 0, "rez_cost": 50 },
+        { "unit": "Hercules", "cost": 0, "rez_cost": 50 }
+      ]
+    },
+    {
+      "tier": "Legendary",
+      "units": [
+        { "unit": "Leonidas", "cost": 0, "rez_cost": 50 },
+        { "unit": "Amanitore", "cost": 0, "rez_cost": 50 },
+        { "unit": "Wu Zetian", "cost": 0, "rez_cost": 50 },
+        { "unit": "Ramses II", "cost": 0, "rez_cost": 50 },
+        { "unit": "Minamoto", "cost": 0, "rez_cost": 50 },
+        { "unit": "Alexander", "cost": 0, "rez_cost": 50 },
+        { "unit": "Cleopatra", "cost": 0, "rez_cost": 50 },
+        { "unit": "Helena", "cost": 0, "rez_cost": 50 }
+      ]
+    },
+    {
+      "tier": "Epic",
+      "units": [
+        { "unit": "Aurora", "cost": 0, "rez_cost": 50 },
+        { "unit": "Aydae", "cost": 0, "rez_cost": 50 },
+        { "unit": "Bernard", "cost": 0, "rez_cost": 50 },
+        { "unit": "Brunhild", "cost": 0, "rez_cost": 50 },
+        { "unit": "Doria", "cost": 0, "rez_cost": 50 },
+        { "unit": "Carter", "cost": 0, "rez_cost": 50 },
+        { "unit": "Dustan", "cost": 0, "rez_cost": 50 },
+        { "unit": "Ingrid", "cost": 0, "rez_cost": 50 },
+        { "unit": "Lucius", "cost": 0, "rez_cost": 50 },
+        { "unit": "Ye Ho-Sung", "cost": 0, "rez_cost": 50 }
+      ]
+    },
+    {
+      "tier": "Rare",
+      "units": [
+        { "unit": "Xi Guiying", "cost": 0, "rez_cost": 50 },
+        { "unit": "Sofia", "cost": 0, "rez_cost": 50 },
+        { "unit": "Tengel", "cost": 0, "rez_cost": 50 },
+        { "unit": "Próscope", "cost": 0, "rez_cost": 50 },
+        { "unit": "Logos", "cost": 0, "rez_cost": 50 },
+        { "unit": "Brann", "cost": 0, "rez_cost": 50 }
       ]
     }
   ]

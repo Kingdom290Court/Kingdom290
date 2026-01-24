@@ -3,7 +3,7 @@
     <div class="flex items-center gap-3 mb-6">
       <div class="h-px bg-kingdom-gold flex-1 opacity-50"></div>
       <h2 class="font-display text-2xl text-kingdom-silver text-center uppercase border-2 border-kingdom-gold px-6 py-2 rounded-sm bg-kingdom-black bg-opacity-50">
-        <i class="fa-solid fa-scroll mr-2 text-kingdom-gold"></i> Tabela de Multas (RoE)
+        <i class="fa-solid fa-scroll mr-2 text-kingdom-gold"></i> Fines Table (RoE)
       </h2>
       <div class="h-px bg-kingdom-gold flex-1 opacity-50"></div>
     </div>
@@ -25,15 +25,15 @@
       <div class="glass-card p-4 flex items-start gap-4 border-l-4 border-l-kingdom-blood">
         <i class="fa-solid fa-gavel text-kingdom-blood text-2xl mt-1"></i>
         <div>
-          <h4 class="font-display text-kingdom-gold">Fator de Reincidência & Status</h4>
-          <p class="text-sm text-gray-300">Jogadores <strong class="text-white">Top 100</strong> pagam o dobro. Casos levados a tribunal/litígio sofrem dobra da indenização final.</p>
+          <h4 class="font-display text-kingdom-gold">Recidivism factor & Status</h4>
+          <p class="text-sm text-gray-300">Players <strong class="text-white">Top 100</strong> pay double. Cases taken to court/litigation suffer a doubling of the final indemnification.</p>
         </div>
       </div>
       <div class="glass-card p-4 flex items-start gap-4 border-l-4 border-l-kingdom-gold">
         <i class="fa-solid fa-coins text-kingdom-gold text-2xl mt-1"></i>
         <div>
-          <h4 class="font-display text-kingdom-gold">Câmbio Real</h4>
-          <p class="text-sm text-gray-300">1 Ouro = <strong>10k Prata</strong>. 1 Alcatrão = <strong>1k Prata</strong>. Pagamento via minas de ouro possível sob acordo.</p>
+          <h4 class="font-display text-kingdom-gold">Real Exchange</h4>
+          <p class="text-sm text-gray-300">1 Gold = <strong>10k Silver</strong>. 1 Tar = <strong>1k Silver</strong>. Payment via gold mines possible under agreement.</p>
         </div>
       </div>
     </div>

@@ -1,61 +1,63 @@
-// Regras Visuais (Usadas no Grid de exibição)
 export const rules = [
     { 
-      title: 'Ataque Ilegal', 
-      value: '500K Silver + CT', 
-      desc: 'Custo de produção (25%) + 75% de custo de reavivamento.', 
+      title: 'Illegal Attack', 
+      value: '500K Silver + RC', 
+      desc: 'Production cost (25%) + 75% revival cost.', 
       icon: 'fa-solid fa-helmet-safety' 
     },
     { 
-      title: 'Monstros', 
-      value: '1M (por nível máximo) + CT', 
-      desc: '1M Silver por nível máximo da unidade + custo de reavivamento.', 
+      title: 'Monsters', 
+      value: '1M (per level) + RC', 
+      desc: '1M Silver per maximum unit level + revival cost.', 
       icon: 'fa-solid fa-dragon' 
     },
     { 
-      title: 'Mercenários', 
-      value: '500k', 
-      desc: 'Valor fixo por incidente/stack.', 
+      title: 'Mercenaries', 
+      value: '500k + RC', 
+      desc: 'Fixed value per incident/stack + revival cost.', 
       icon: 'fa-brands fa-wolf-pack-battalion' 
     },
     { 
-      title: 'Capital de Clã', 
+      title: 'Clan Capital', 
       value: '10M', 
-      desc: 'Ataque à Capital Central.', 
+      desc: 'Attack on the Central Capital.', 
       icon: 'fa-solid fa-chess-rook' 
     },
     { 
-      title: 'Forte de Clã', 
+      title: 'Clan Fort', 
       value: '5M', 
-      desc: 'Ataque ou destruição de Forte.', 
+      desc: 'Attack or destruction of a Fort.', 
       icon: 'fa-brands fa-fort-awesome' 
     },
     { 
-      title: 'Portais', 
+      title: 'Portals', 
       value: '1M', 
-      desc: 'Valor por unidade destruída.', 
+      desc: 'Value per destroyed unit.', 
       icon: 'fa-solid fa-dungeon' 
     },
   ];
   
-  // Infrações de Tropas e Monstros (Com Nível)
+  // Troop and Monster Infractions (Leveled)
   export const troopInfractions = [
-    { label: 'Tropas', hasQty: true, qtyLabel: 'Qtd. Unidades/Stacks', hasLevel: true, levelType: 'troop', type: 'leveled' },
-    { label: 'Monstros', hasQty: true, qtyLabel: 'Qtd. Unidades/Stacks', hasLevel: true, levelType: 'monster', type: 'leveled' },
-    { label: 'Mercenários', base: 500000, hasQty: true, qtyLabel: 'Qtd. Mercenários', type: 'basic' }
+    { label: 'Troops', hasQty: true, qtyLabel: 'Unit/Stack Qty', hasLevel: true, levelType: 'troop', type: 'leveled' },
+    { label: 'Monsters', hasQty: true, qtyLabel: 'Unit/Stack Qty', hasLevel: true, levelType: 'monster', type: 'leveled' },
+    { label: 'Mercenaries', base: 500000, hasQty: true, qtyLabel: 'Mercenary Qty', type: 'basic' }
   ];
   
-  // Infrações Gerais (Valores Fixos)
+  // General Infractions (Fixed Values)
   export const generalInfractions = [
-    { label: 'Ataque Ilegal (>1M Poder)', base: 500000, hasQty: false, type: 'basic' },
-    { label: 'Roubo de Dragon Mound', base: 500000, hasQty: false, type: 'basic' },
-    { label: 'Destruição: Portais', base: 1000000, hasQty: true, qtyLabel: 'Qtd Portais', type: 'basic' },
-    { label: 'Destruição: Forte de Clã', base: 5000000, hasQty: false, type: 'basic' },
-    { label: 'Destruição: Capital de Clã', base: 10000000, hasQty: false, type: 'basic' },
+    { label: 'Illegal Attack (>1M Power)', base: 500000, hasQty: false, type: 'basic' },
+    { label: 'Dragon Mound Theft', base: 500000, hasQty: false, type: 'basic' },
+    { label: 'Destruction: Portals', base: 1000000, hasQty: true, qtyLabel: 'Portal Qty', type: 'basic' },
+    { label: 'Destruction: Clan Fort', base: 5000000, hasQty: false, type: 'basic' },
+    { label: 'Destruction: Clan Capital', base: 10000000, hasQty: false, type: 'basic' },
   ];
   
-  // Infrações de Recursos (Multiplicadores)
+  // Resource Infractions (Multipliers)
   export const resourceInfractions = [
-    { label: 'Dívida: Ouro (Gold)', hasQty: true, qtyLabel: 'Qtd de Ouro', multiplier: 10000, type: 'resource' },
-    { label: 'Dívida: Alcatrão (Tar)', hasQty: true, qtyLabel: 'Qtd de Alcatrão', multiplier: 1000, type: 'resource' }
+    { label: 'Debt: Gold', hasQty: true, qtyLabel: 'Gold Amount', multiplier: 10000, type: 'resource' },
+    { label: 'Debt: Tar', hasQty: true, qtyLabel: 'Tar Amount', multiplier: 1000, type: 'resource' },
+    { label: 'Debt: Stone', hasQty: true, qtyLabel: 'Stone Amount', multiplier: 0.1, type: 'resource' },
+    { label: 'Debt: Wood', hasQty: true, qtyLabel: 'Wood Amount', multiplier: 0.1, type: 'resource' },
+    { label: 'Debt: Food', hasQty: true, qtyLabel: 'Food Amount', multiplier: 0.1, type: 'resource' }
   ];

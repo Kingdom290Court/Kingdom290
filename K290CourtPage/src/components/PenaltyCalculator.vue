@@ -3,9 +3,10 @@
     <div class="glass-card rounded-xl overflow-hidden relative">
       <div class="bg-gradient-to-r from-kingdom-black via-kingdom-dark to-kingdom-black p-6 border-b border-kingdom-gold/30 flex justify-between items-center">
         <h2 class="font-display text-2xl text-kingdom-gold">
-          <i class="fa-solid fa-scale-balanced mr-2"></i> Juiz de Compensação
+          <i class="fa-solid fa-scale-balanced mr-2"></i> Compensation Judge
+
         </h2>
-        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">Sistema V.6.0 (Regra 25/75)</span>
+        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">Sistema V.9.0 (Capitães)</span>
       </div>
 
       <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -14,16 +15,16 @@
         <div class="space-y-6">
           <div class="bg-white/5 p-4 rounded border border-white/10">
             <h3 class="font-display text-kingdom-gold text-sm mb-4 uppercase border-b border-gray-700 pb-2">
-              <i class="fa-solid fa-plus-circle mr-1"></i> Configurar Infração
+              <i class="fa-solid fa-plus-circle mr-1"></i> Configure Violation
             </h3>
 
             <!-- 1. Categoria Principal -->
             <div class="mb-4">
-              <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Categoria</label>
+              <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Category</label>
               <div class="relative">
                 <select v-model="selectedCategoryKey" class="input-medieval w-full p-3 rounded appearance-none cursor-pointer text-sm">
-                  <option value="general">Infrações Gerais / Recursos</option>
-                  <optgroup label="Unidades de Batalha">
+                  <option value="general">General Violations / Resources</option>
+                  <optgroup label="Battle Units">
                     <option v-for="(label, key) in categoryLabels" :key="key" :value="key">
                       {{ label }}
                     </option>
@@ -56,7 +57,7 @@
 
               <!-- 3. Seleção de Unidade Específica -->
               <div>
-                <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Unidade</label>
+                <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Unity</label>
                 <div class="relative">
                   <select v-model="selectedUnitIndex" class="input-medieval w-full p-3 rounded appearance-none cursor-pointer text-sm">
                     <option v-for="(u, index) in availableUnits" :key="index" :value="index">
@@ -72,12 +73,17 @@
               <!-- 4. Display dos Custos Base (Informativo) -->
               <div class="bg-kingdom-black/40 p-3 rounded border border-white/5 text-xs text-gray-400 flex justify-between items-center" v-if="currentUnit">
                 <div>
-                   <div class="mb-1">Custo Produção: <span class="text-gray-200">{{ currentUnit.cost ? formatCurrency(currentUnit.cost) : 'N/A' }}</span></div>
-                   <div>Custo Ressurreição: <span class="text-gray-200">{{ currentUnit.rez_cost ? formatCurrency(currentUnit.rez_cost) : 'N/A' }}</span></div>
+                   <div class="mb-1">Prod: <span class="text-gray-200">{{ currentUnit.cost ? formatCompact(currentUnit.cost) : 'N/A' }}</span></div>
+                   <div>Rez: <span class="text-gray-200">{{ currentUnit.rez_cost ? formatCompact(currentUnit.rez_cost) : 'N/A' }}</span></div>
                 </div>
                 <div class="text-right">
-                   <div class="text-[10px] uppercase tracking-wide text-kingdom-gold mb-1">Regra Ativa</div>
-                   <div class="font-bold text-white">25% Prod / 75% Rez</div>
+                   <div class="text-[10px] uppercase tracking-wide text-kingdom-gold mb-1">Rule</div>
+                   <div v-if="selectedCategoryKey === 'captains'" class="font-bold text-white text-[10px]">
+                     Rez Cost x Level
+                   </div>
+                   <div v-else class="font-bold text-white text-[10px]">
+                     25% Prod / 75% Rez
+                   </div>
                 </div>
               </div>
 
@@ -88,13 +94,18 @@
               <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Tipo de Infração</label>
               <div class="relative">
                 <select v-model="selectedGeneralIndex" class="input-medieval w-full p-3 rounded appearance-none cursor-pointer text-sm">
-                  <optgroup label="Infrações Gerais">
+                  <optgroup label="General Violations">
                     <option v-for="(inf, index) in generalInfractions" :key="inf.id" :value="index">
                       {{ inf.label }}
                     </option>
                   </optgroup>
+                  <optgroup label="Outros / Mercenários">
+                     <option v-for="(inf, index) in extraInfractions" :key="inf.id" :value="index + generalInfractions.length">
+                      {{ inf.label }}
+                    </option>
+                  </optgroup>
                   <optgroup label="Recursos">
-                    <option v-for="(inf, index) in resourceInfractions" :key="inf.id" :value="index + generalInfractions.length">
+                    <option v-for="(inf, index) in resourceInfractions" :key="inf.id" :value="index + generalInfractions.length + extraInfractions.length">
                       {{ inf.label }}
                     </option>
                   </optgroup>
@@ -105,33 +116,55 @@
               </div>
             </div>
 
-            <!-- Quantidade -->
-            <div class="mb-6 mt-4">
+            <!-- Quantidade (Reutilizado como Nível para Capitães) -->
+            <div class="mb-4 mt-4">
               <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">
-                Quantidade (Tropas Mortas)
+                {{ selectedCategoryKey === 'captains' ? 'Captain Level' : 'Quantity' }}
               </label>
               <div class="flex items-center">
                 <button @click="qty > 1 ? qty-- : null" class="w-10 h-10 bg-kingdom-dark border border-kingdom-gold text-kingdom-gold rounded-l hover:bg-kingdom-gold hover:text-black transition">-</button>
                 <input type="number" v-model="qty" min="1" class="input-medieval w-full p-2 text-center border-l-0 border-r-0 h-10 font-bold">
                 <button @click="qty++" class="w-10 h-10 bg-kingdom-dark border border-kingdom-gold text-kingdom-gold rounded-r hover:bg-kingdom-gold hover:text-black transition">+</button>
               </div>
-              
-              <!-- Preview de Valor Total Calculado -->
-              <p class="text-xs text-gray-500 mt-2 text-right flex justify-between items-center border-t border-gray-800 pt-2">
-                 <span>Valor Calculado p/ item:</span>
-                 <strong class="text-kingdom-gold">
-                    {{ formatCompact(previewCalculatedValue) }}
-                 </strong>
+              <!-- Dica extra para capitães -->
+              <p v-if="selectedCategoryKey === 'captains'" class="text-[10px] text-gray-500 mt-1 text-right">
+                 The level entered above will be used in the calculation.
               </p>
             </div>
 
+            <!-- CHECKBOX DE MULTA ADICIONAL -->
+            <div v-if="selectedCategoryKey !== 'general'" class="mb-6 p-3 bg-kingdom-blood/10 border border-kingdom-blood/30 rounded">
+                <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                  <input type="checkbox" v-model="applyBaseFine" class="hidden">
+                  <div class="w-5 h-5 border border-kingdom-blood rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
+                    <i class="fa-solid fa-check text-[10px] text-white" v-show="applyBaseFine"></i>
+                  </div>
+                  <div class="flex flex-col">
+                      <span class="text-sm font-bold text-gray-200 group-hover:text-kingdom-gold transition">Add Base Fine</span>
+                      <span class="text-[10px] text-gray-400">
+                          {{ calculatedFineDescription }}
+                      </span>
+                  </div>
+                </label>
+            </div>
+
+            
+            <!-- Preview de Valor Total Calculado -->
+            <p class="text-xs text-gray-500 mb-4 text-right flex justify-between items-center border-t border-gray-800 pt-2">
+                <span>Total Item:</span>
+                <strong class="text-kingdom-gold text-lg">
+                {{ formatCompact(previewCalculatedValue) }}
+                </strong>
+            </p>
+
             <button @click="addToCart" :disabled="previewCalculatedValue === 0" class="w-full bg-kingdom-gold hover:bg-white text-black font-display font-bold uppercase py-3 rounded transition duration-300 flex items-center justify-center gap-2 shadow-lg shadow-kingdom-gold/20 disabled:opacity-50 disabled:cursor-not-allowed">
-              <i class="fa-solid fa-plus"></i> Adicionar à Lista
+              <i class="fa-solid fa-plus"></i> Add to List
             </button>
           </div>
 
           <!-- Agravantes Globais -->
           <div class="p-4 border-t border-gray-800">
+            <label class="block font-display text-xs text-gray-500 mb-3 uppercase tracking-wide"> Aggravating Factors (Final Multipliers) </label>
             <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group mb-3">
               <input type="checkbox" v-model="isTop100" class="hidden">
               <div class="w-5 h-5 border border-gray-600 rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
@@ -144,7 +177,7 @@
               <div class="w-5 h-5 border border-gray-600 rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
                 <i class="fa-solid fa-check text-[10px] text-black" v-show="isTribunal"></i>
               </div>
-              <span class="text-sm text-gray-400 group-hover:text-kingdom-blood transition">Tribunal (x2)</span>
+              <span class="text-sm text-gray-400 group-hover:text-kingdom-blood transition">Court Member (x2)</span>
             </label>
           </div>
         </div>
@@ -155,26 +188,35 @@
              <!-- Lista vazia -->
              <div v-if="cart.length === 0" class="h-40 flex flex-col items-center justify-center text-gray-600 italic text-sm">
                 <i class="fa-solid fa-scale-unbalanced text-3xl mb-2 opacity-30"></i>
-                Nenhuma infração adicionada.
+                No infractions added.
              </div>
              <!-- Itens do Carrinho -->
              <transition-group name="list" tag="ul" class="space-y-2">
                 <li v-for="(item, index) in cart" :key="item.id" class="bg-white/5 hover:bg-white/10 p-2 rounded flex justify-between items-center border-l-2 border-kingdom-gold group">
-                  <div class="text-sm">
-                    <div class="text-gray-200 font-bold">
-                      <span class="text-kingdom-gold">{{ item.qty }}x</span> {{ item.name }}
+                  <div class="text-sm w-full">
+                    <div class="flex justify-between items-start">
+                        <div class="text-gray-200 font-bold">
+                            <!-- Se for capitão, mostra [1] como qtd padrão e o nível no nome -->
+                            <span class="text-kingdom-gold">{{ item.qty }}x</span> {{ item.name }}
+                        </div>
+                        <div v-if="item.fineAmount > 0" class="text-[10px] bg-kingdom-blood/20 text-kingdom-blood border border-kingdom-blood/50 px-1 rounded ml-2 whitespace-nowrap" title="Multa Base Aplicada">
+                            +{{ formatCompact(item.fineAmount) }} Fine
+                        </div>
                     </div>
-                    <div class="text-xs text-gray-500 mt-1">
-                      <div v-if="item.isMixed">
-                         <span class="text-gray-400 text-[10px] uppercase tracking-wider">Base de Cálculo Mista (25/75)</span>
+                    
+                    <div class="text-xs text-gray-500 mt-1 flex justify-between">
+                      <div>
+                        <span v-if="item.isMixed">CT (25/75)</span>
+                        <span v-else-if="item.isCaptain">Cost Rez x Level {{ item.captainLvl }}</span>
+                        <span v-else>Fixed Cost</span>
                       </div>
-                      <div v-else class="text-[10px] uppercase text-gray-600">
-                        Custo Fixo / Geral
+                      <div class="font-mono text-gray-400">
+                          {{ formatCompact(item.itemCostWithoutFine) }} (CT)
                       </div>
                     </div>
                   </div>
-                  <div class="flex items-center gap-3">
-                    <span class="text-gray-300 font-mono text-sm">{{ formatCompact(item.totalValue) }}</span>
+                  <div class="flex items-center gap-3 pl-4 border-l border-gray-700 ml-2">
+                    <span class="text-white font-bold font-mono text-sm">{{ formatCompact(item.totalValue) }}</span>
                     <button @click="removeFromCart(index)" class="text-gray-600 hover:text-kingdom-blood transition">
                       <i class="fa-solid fa-times"></i>
                     </button>
@@ -186,16 +228,16 @@
           <!-- Rodapé de Totais -->
           <div class="p-6 bg-kingdom-dark/80 border-t border-kingdom-gold/20 backdrop-blur-sm mt-auto relative z-10">
              <div class="text-center mt-2">
-                <div class="text-xs text-kingdom-gold uppercase tracking-widest mb-1">Total Final</div>
+                <div class="text-xs text-kingdom-gold uppercase tracking-widest mb-1">Final Total</div>
                 <div class="text-3xl lg:text-4xl font-bold text-white tracking-tight gold-glow">
                   {{ formatCurrency(finalTotal) }}
                 </div>
-                <div class="text-[10px] text-gray-500 mt-1 uppercase">Prata</div>
+                <div class="text-[10px] text-gray-500 mt-1 uppercase">Silver</div>
              </div>
              <button @click="copyReport" v-if="cart.length > 0"
                     class="mt-4 w-full bg-kingdom-blood hover:bg-kingdom-bloodLight text-white font-display uppercase text-sm tracking-widest py-3 rounded border border-transparent hover:border-kingdom-gold transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
-                <span v-if="!showCopied">Copiar Nota Fiscal</span>
-                <span v-else>Copiado!</span>
+                <span v-if="!showCopied">Copy Debit Memo</span>
+                <span v-else>Copied!</span>
                 <i class="fa-solid" :class="showCopied ? 'fa-check' : 'fa-scroll'"></i>
              </button>
           </div>
@@ -207,7 +249,7 @@
     <transition name="fade">
         <div v-if="showCopied" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-kingdom-gold text-kingdom-black px-6 py-3 rounded shadow-xl border border-white z-50 flex items-center gap-3 pointer-events-none">
             <i class="fa-solid fa-circle-check"></i>
-            <span class="font-bold">Relatório copiado para a área de transferência</span>
+            <span class="font-bold">Report copied to clipboard</span>
         </div>
     </transition>
   </section>
@@ -215,21 +257,23 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue';
-import { unitsDB, categoryLabels, generalInfractions, resourceInfractions } from '../data/dataCompensation';
+import { unitsDB, categoryLabels, generalInfractions, resourceInfractions, extraInfractions } from '../data/dataCompensation';
 
 // --- Estado ---
 const selectedCategoryKey = ref('guardsmen'); 
 const selectedTierIndex = ref(0);
 const selectedUnitIndex = ref(0);
 const selectedGeneralIndex = ref(0);
+// const captainLevel = ref(1); // REMOVIDO: Usamos qty
 const qty = ref(1);
+const applyBaseFine = ref(false); 
 const isTop100 = ref(false);
 const isTribunal = ref(false);
 const cart = ref([]);
 const cartIdCounter = ref(1);
 const showCopied = ref(false);
 
-const allGeneralInfractions = [...generalInfractions, ...resourceInfractions];
+const allGeneralInfractions = [...generalInfractions, ...extraInfractions, ...resourceInfractions];
 
 // --- Computados ---
 
@@ -253,32 +297,67 @@ const currentGeneralInfraction = computed(() => {
     return allGeneralInfractions[selectedGeneralIndex.value];
 });
 
+// Calcula qual seria o valor da multa base para a seleção atual
+const currentFineAmount = computed(() => {
+    if (selectedCategoryKey.value === 'general') return 0;
+    
+    if (selectedCategoryKey.value === 'monsters') {
+        const tierStr = availableTiers.value[selectedTierIndex.value].tier; 
+        const tierNum = parseInt(tierStr.replace(/\D/g, '')) || 1; 
+        return 1000000 * tierNum;
+    }
+    
+    return 500000;
+});
+
+const calculatedFineDescription = computed(() => {
+    if (selectedCategoryKey.value === 'monsters') {
+        return `+${formatCompact(currentFineAmount.value)} (1M x Tier)`;
+    }
+    return `+${formatCompact(currentFineAmount.value)} (Fixo)`;
+});
+
 // Lógica de Cálculo Centralizada (Preview)
 const previewCalculatedValue = computed(() => {
-    // 1. Caso Infrações Gerais
+    let total = 0;
+
+    // 1. Custo das Tropas (CT)
     if (selectedCategoryKey.value === 'general') {
         const inf = currentGeneralInfraction.value;
         let base = (inf.type === 'basic') ? inf.base : inf.multiplier;
-        return base * qty.value;
-    } 
+        total = base * qty.value;
+    } else {
+        if (!currentUnit.value) return 0;
+        
+        // --- LOGICA ESPECIAL PARA CAPITÃES ---
+        if (selectedCategoryKey.value === 'captains') {
+             // Rez Cost * Nível (que está em qty)
+             const rezCost = currentUnit.value.rez_cost || 0;
+             // Aqui qty funciona como o Nível do Capitão
+             total = rezCost * qty.value;
+        } 
+        // --- LOGICA PADRÃO 25/75 ---
+        else {
+            const prodCost = currentUnit.value.cost;
+            const rezCost = currentUnit.value.rez_cost;
+            const totalQty = qty.value;
 
-    // 2. Caso Unidades (Regra 25/75)
-    if (!currentUnit.value) return 0;
-    
-    const prodCost = currentUnit.value.cost;     // Custo produção
-    const rezCost = currentUnit.value.rez_cost;  // Custo ressurreição
-    const totalQty = qty.value;
+            if (prodCost === null && rezCost !== null) total += rezCost * totalQty;
+            else if (rezCost === null && prodCost !== null) total += prodCost * totalQty;
+            else if (prodCost !== null && rezCost !== null) {
+                const qtyProd = totalQty * 0.25;
+                const qtyRez = totalQty * 0.75;
+                total += (qtyProd * prodCost) + (qtyRez * rezCost);
+            }
+        }
+    }
 
-    // Proteção para unidades que não tem preço (ex: Mercenários com null)
-    if (prodCost === null && rezCost !== null) return rezCost * totalQty;
-    if (rezCost === null && prodCost !== null) return prodCost * totalQty;
-    if (prodCost === null && rezCost === null) return 0;
+    // 2. Adição da Multa
+    if (applyBaseFine.value && selectedCategoryKey.value !== 'general') {
+        total += currentFineAmount.value;
+    }
 
-    // Regra Padrão: 25% refaz (caro) + 75% revive (barato)
-    const qtyProd = totalQty * 0.25;
-    const qtyRez = totalQty * 0.75;
-
-    return (qtyProd * prodCost) + (qtyRez * rezCost);
+    return total;
 });
 
 const totalBase = computed(() => cart.value.reduce((acc, item) => acc + item.totalValue, 0));
@@ -295,6 +374,7 @@ watch(selectedCategoryKey, () => {
     selectedTierIndex.value = 0;
     selectedUnitIndex.value = 0;
     qty.value = 1;
+    applyBaseFine.value = false;
 });
 watch(selectedTierIndex, () => {
     selectedUnitIndex.value = 0;
@@ -314,23 +394,42 @@ const addToCart = () => {
 
     let name = '';
     let isMixed = false;
+    let isCaptain = false;
+    let fineApplied = 0;
+    let costWithoutFine = 0;
+    let itemQty = qty.value;
+    let captainLvlValue = 1;
 
     if (selectedCategoryKey.value === 'general') {
         name = currentGeneralInfraction.value.label;
+        costWithoutFine = previewCalculatedValue.value;
     } else {
         name = currentUnit.value.unit;
-        // Se tiver ambos os custos, é misto
-        if (currentUnit.value.cost !== null && currentUnit.value.rez_cost !== null) {
+        
+        if (selectedCategoryKey.value === 'captains') {
+            isCaptain = true;
+            // O valor digitado no input (qty) é o nível
+            captainLvlValue = qty.value;
+            // No carrinho, a quantidade conta como 1 "incidente"
+            itemQty = 1;
+        } else if (currentUnit.value.cost !== null && currentUnit.value.rez_cost !== null) {
             isMixed = true;
         }
+        
+        fineApplied = applyBaseFine.value ? currentFineAmount.value : 0;
+        costWithoutFine = previewCalculatedValue.value - fineApplied;
     }
 
     cart.value.push({
         id: cartIdCounter.value++,
         name: name,
-        qty: qty.value,
+        qty: itemQty, // Será 1 para capitães
         totalValue: previewCalculatedValue.value,
-        isMixed: isMixed
+        itemCostWithoutFine: costWithoutFine,
+        fineAmount: fineApplied,
+        isMixed: isMixed,
+        isCaptain: isCaptain,
+        captainLvl: captainLvlValue // Guarda o nível real
     });
 };
 
@@ -340,38 +439,45 @@ const copyReport = () => {
   const date = new Date().toLocaleDateString('pt-BR');
   const totalFormatted = formatCurrency(finalTotal.value);
   
-  // Formatando os itens como linhas de "Nota"
   let itemsList = cart.value.map(item => {
-    const detail = item.isMixed ? '(Misto 25/75)' : '';
+    let detail = '';
+    
+    // Detalhes extras no report
+    if (item.isCaptain) {
+        detail += ` (Nv.${item.captainLvl})`;
+    }
+    
+    if (item.fineAmount > 0) {
+        detail += ` [+Multa ${formatCompact(item.fineAmount)}]`;
+    }
+    
     return `[${item.qty}] ${item.name} ${detail}\n    Valor: ${formatCompact(item.totalValue)}`;
   }).join('\n');
 
-  // Formatando os status de agravantes
-  const statusTop100 = isTop100.value ? "SIM (+100%)" : "NAO";
-  const statusTribunal = isTribunal.value ? "SIM (+100%)" : "NAO";
+  const statusTop100 = isTop100.value ? "YES (+100%)" : "NO";
+  const statusTribunal = isTribunal.value ? "YES (+100%)" : "NO";
 
-  // Montando a "Nota Fiscal"
-  const report = `
+const report = `
 ========================================
-      REINO #290 - NOTA DE DEBITO
+      KINGDOM #290 - DEBIT MEMO
 ========================================
-DATA: ${date}
+DATE: ${date}
 
-DETALHAMENTO DOS ITENS:
+ITEMIZED BREAKDOWN:
 ----------------------------------------
 ${itemsList}
 ----------------------------------------
 SUBTOTAL: ${formatCompact(totalBase.value)}
 
-AGRAVANTES / TAXAS:
-> Infrator Top 100: ${statusTop100}
-> Litigio Tribunal: ${statusTribunal}
+AGGRAVATING FACTORS / FEES:
+> Top 100 Offender: ${statusTop100}
+> Court Litigation: ${statusTribunal}
 
 ========================================
-TOTAL A PAGAR:  ${totalFormatted} PRATA
+TOTAL DUE:  ${totalFormatted} SILVER
 ========================================
-OBS: Pagamento imediato solicitado para
-evitar sancoes da Guarda Real.
+NOTE: Immediate payment requested to
+avoid sanctions from the Royal Guard.
 `.trim();
 
   navigator.clipboard.writeText(report).then(() => {

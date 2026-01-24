@@ -5,7 +5,7 @@
       Kingdom #290
     </h1>
     <p class="font-display text-xl md:text-2xl text-kingdom-silver tracking-widest opacity-90">
-      Compensação de crimes contra o reino
+      Compensation for crimes Against the Kingdom
     </p>
     <div class="mt-8 flex justify-center">
       <i class="fa-solid fa-crown text-4xl text-kingdom-gold animate-pulse"></i>
