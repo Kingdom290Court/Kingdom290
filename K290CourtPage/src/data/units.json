@@ -1,0 +1,200 @@
+{
+  "guardsmen": [
+    {
+      "tier": "T1",
+      "units": [
+        { "unit": "T1 Archers", "cost": 300, "rez_cost": 40 },
+        { "unit": "T1 Spearmen", "cost": 300, "rez_cost": 40 },
+        { "unit": "T1 Riders", "cost": 600, "rez_cost": 80 }
+      ]
+    },
+    {
+      "tier": "T2",
+      "units": [
+        { "unit": "T2 Archers", "cost": 500, "rez_cost": 40 },
+        { "unit": "T2 Spearmen", "cost": 500, "rez_cost": 40 },
+        { "unit": "T2 Riders", "cost": 1000, "rez_cost": 80 }
+      ]
+    },
+    {
+      "tier": "T3",
+      "units": [
+        { "unit": "T3 Archers", "cost": 700, "rez_cost": 40 },
+        { "unit": "T3 Spearmen", "cost": 700, "rez_cost": 40 },
+        { "unit": "T3 Riders", "cost": 1400, "rez_cost": 80 }
+      ]
+    },
+    {
+      "tier": "T4",
+      "units": [
+        { "unit": "T4 Archers", "cost": 900, "rez_cost": 40 },
+        { "unit": "T4 Spearmen", "cost": 900, "rez_cost": 40 },
+        { "unit": "T4 Riders", "cost": 1800, "rez_cost": 80 }
+      ]
+    },
+    {
+      "tier": "T5",
+      "units": [
+        { "unit": "T5 Archers", "cost": 1100, "rez_cost": 40 },
+        { "unit": "T5 Spearmen", "cost": 1100, "rez_cost": 40 },
+        { "unit": "T5 Riders", "cost": 2200, "rez_cost": 80 },
+        { "unit": "T5 Battle griffin", "cost": 22000, "rez_cost": 800 }
+      ]
+    },
+    {
+      "tier": "T6",
+      "units": [
+        { "unit": "T6 Heavy arbalester", "cost": 1300, "rez_cost": 40 },
+        { "unit": "T6 Heavy Halberdier", "cost": 1300, "rez_cost": 40 },
+        { "unit": "T6 Mounted knight", "cost": 2600, "rez_cost": 80 },
+        { "unit": "T6 Battle griffin", "cost": 26000, "rez_cost": 800 }
+      ]
+    },
+    {
+      "tier": "T7",
+      "units": [
+        { "unit": "T7 Heavy arbalester", "cost": 1500, "rez_cost": 40 },
+        { "unit": "T7 Heavy Halberdier", "cost": 1500, "rez_cost": 40 },
+        { "unit": "T7 Mounted knight", "cost": 3000, "rez_cost": 80 },
+        { "unit": "T7 Battle griffin", "cost": 30000, "rez_cost": 800 }
+      ]
+    },
+    {
+      "tier": "Especial I",
+      "units": [
+        { "unit": "TI Purifier", "cost": 1700, "rez_cost": 40 },
+        { "unit": "TI Punisher", "cost": 1700, "rez_cost": 40 },
+        { "unit": "TI Smiter", "cost": 3400, "rez_cost": 80 },
+        { "unit": "TI Corax", "cost": 34000, "rez_cost": 800 }
+      ]
+    },
+    {
+      "tier": "Especial II",
+      "units": [
+        { "unit": "TII Purifier", "cost": 1900, "rez_cost": 40 },
+        { "unit": "TII Punisher", "cost": 1900, "rez_cost": 40 },
+        { "unit": "TII Smiter", "cost": 3800, "rez_cost": 80 },
+        { "unit": "TII Corax", "cost": 38000, "rez_cost": 800 }
+      ]
+    }
+  ],
+  "specialists": [
+    {
+      "tier": "T1",
+      "units": [
+        { "unit": "T1 Swordsmen", "cost": 300, "rez_cost": 40 },
+        { "unit": "T1 Spies", "cost": 1500, "rez_cost": 200 }
+      ]
+    },
+    {
+      "tier": "T2",
+      "units": [
+        { "unit": "T2 Swordsmen", "cost": 500, "rez_cost": 40 },
+        { "unit": "T2 Spies", "cost": 2500, "rez_cost": 200 }
+      ]
+    },
+    {
+      "tier": "T3",
+      "units": [
+        { "unit": "T3 Swordsmen", "cost": 700, "rez_cost": 40 },
+        { "unit": "T3 Spies", "cost": 3500, "rez_cost": 200 }
+      ]
+    },
+    {
+      "tier": "T4",
+      "units": [
+        { "unit": "T4 Swordsmen", "cost": 900, "rez_cost": 40 },
+        { "unit": "T4 Spies", "cost": 4500, "rez_cost": 200 }
+      ]
+    },
+    {
+      "tier": "T5",
+      "units": [
+        { "unit": "T5 Swordsmen", "cost": 1100, "rez_cost": 40 },
+        { "unit": "T5 Spies", "cost": 5500, "rez_cost": 200 }
+      ]
+    }
+  ],
+  "engineer_corps": [
+    {
+      "tier": "T1",
+      "units": [{ "unit": "T1 Catapults", "cost": 3000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "T2",
+      "units": [{ "unit": "T2 Catapults", "cost": 5000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "T3",
+      "units": [{ "unit": "T3 Catapults", "cost": 7000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "T4",
+      "units": [{ "unit": "T4 Catapults", "cost": 9000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "T5",
+      "units": [{ "unit": "T5 Catapults", "cost": 11000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "T6",
+      "units": [{ "unit": "T6 Ballistae", "cost": 13000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "T7",
+      "units": [{ "unit": "T7 Ballistae", "cost": 15000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "Especial I",
+      "units": [{ "unit": "TI Josephine", "cost": 17000, "rez_cost": 400 }]
+    },
+    {
+      "tier": "Especial II",
+      "units": [{ "unit": "TII Josephine", "cost": 19000, "rez_cost": 400 }]
+    }
+  ],
+  "monsters": [
+    {
+      "tier": "T3",
+      "units": [
+        { "unit": "T3 Emerald Dragon", "cost": 19600, "rez_cost": 1120 },
+        { "unit": "T3 Water Elemental", "cost": 8400, "rez_cost": 480 },
+        { "unit": "T3 Stone Gargoyle", "cost": 22400, "rez_cost": 1280 },
+        { "unit": "T3 Battle Boar", "cost": 16760, "rez_cost": 960 }
+      ]
+    },
+    {
+      "tier": "T4",
+      "units": [
+        { "unit": "T4 Magic Dragon", "cost": 46800, "rez_cost": 2080 },
+        { "unit": "T4 Ice Phoenix", "cost": 54000, "rez_cost": 2400 },
+        { "unit": "T4 Many-Armed Guardian", "cost": 39600, "rez_cost": 1760 },
+        { "unit": "T4 Gorgon Medusa", "cost": 35920, "rez_cost": 1600 }
+      ]
+    },
+    {
+      "tier": "T5",
+      "units": [
+        { "unit": "T5 Desert Vanquisher", "cost": 87900, "rez_cost": 3200 },
+        { "unit": "T5 Flaming Centaur", "cost": 92400, "rez_cost": 3360 }
+      ]
+    }
+  ],
+  "mercenaries": [
+    {
+      "tier": "T5",
+      "units": [
+        { "unit": "T5 Swift Marksman", "cost": 75000, "rez_cost": 80 },
+        { "unit": "T5 Scorpion", "cost": 750000, "rez_cost": 800 },
+        { "unit": "T5 Gargoyle", "cost": 1411765, "rez_cost": 1500 },
+        { "unit": "T5 Bear", "cost": 1600000, "rez_cost": 1600 },
+        { "unit": "T5 Unicorn Rider", "cost": null, "rez_cost": 2000 },
+        { "unit": "T5 Bull Rider", "cost": null, "rez_cost": 2200 },
+        { "unit": "T5 Giant Zombie", "cost": null, "rez_cost": 2500 },
+        { "unit": "T5 Scorpion Rider", "cost": 2666667, "rez_cost": 2800 },
+        { "unit": "T5 Ifrit", "cost": null, "rez_cost": 3300 },
+        { "unit": "T5 Cyclops", "cost": 3428571, "rez_cost": 3400 }
+      ]
+    }
+  ]
+}

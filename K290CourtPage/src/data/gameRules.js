@@ -1,15 +1,15 @@
 // Regras Visuais (Usadas no Grid de exibição)
 export const rules = [
     { 
-      title: 'Tropas', 
-      value: '500k+', 
-      desc: 'Base 500k (L1) + 500k por nível.', 
+      title: 'Ataque Ilegal', 
+      value: '500K Silver + CT', 
+      desc: 'Custo de produção (25%) + 75% de custo de reavivamento.', 
       icon: 'fa-solid fa-helmet-safety' 
     },
     { 
       title: 'Monstros', 
-      value: '1M+', 
-      desc: 'Base 1M (L1) + 500k por nível.', 
+      value: '1M (por nível máximo) + CT', 
+      desc: '1M Silver por nível máximo da unidade + custo de reavivamento.', 
       icon: 'fa-solid fa-dragon' 
     },
     { 
