@@ -1,32 +1,51 @@
+// Regras Visuais (Usadas no Grid de exibição)
 export const rules = [
     { 
+      title: 'First Offense', 
+      value: '5M', 
+      desc: 'Fixed fine for the first illegal attack (Warning).', 
+      icon: 'fa-solid fa-hand-paper' 
+    },
+    { 
       title: 'Illegal Attack', 
-      value: '500K Silver + RC', 
-      desc: 'Production cost (25%) + 75% revival cost.', 
+      value: '500K Silver + CT', 
+      desc: 'Production cost (25%) + 75% of revival cost.', 
       icon: 'fa-solid fa-helmet-safety' 
     },
     { 
       title: 'Monsters', 
-      value: '1M (per level) + RC', 
-      desc: '1M Silver per maximum unit level + revival cost.', 
+      value: '1M (per level) + CT', 
+      desc: '1M Silver per max unit level + revival cost.', 
       icon: 'fa-solid fa-dragon' 
     },
     { 
+      title: 'Captains', 
+      value: 'Rez Cost x Level', 
+      desc: 'Revival cost (50) multiplied by captain level.', 
+      icon: 'fa-solid fa-chess-king' 
+    },
+    { 
+      title: 'Heroes', 
+      value: 'Rez Cost x Level', 
+      desc: 'Revival cost (50) multiplied by hero level.', 
+      icon: 'fa-solid fa-mask'  
+    },
+    { 
       title: 'Mercenaries', 
-      value: '500k + RC', 
+      value: '500k + CT', 
       desc: 'Fixed value per incident/stack + revival cost.', 
       icon: 'fa-brands fa-wolf-pack-battalion' 
     },
     { 
       title: 'Clan Capital', 
       value: '10M', 
-      desc: 'Attack on the Central Capital.', 
+      desc: 'Attack on Central Capital.', 
       icon: 'fa-solid fa-chess-rook' 
     },
     { 
       title: 'Clan Fort', 
       value: '5M', 
-      desc: 'Attack or destruction of a Fort.', 
+      desc: 'Attack or destruction of Fort.', 
       icon: 'fa-brands fa-fort-awesome' 
     },
     { 

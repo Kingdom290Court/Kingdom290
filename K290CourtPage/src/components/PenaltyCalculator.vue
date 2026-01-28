@@ -4,9 +4,8 @@
       <div class="bg-gradient-to-r from-kingdom-black via-kingdom-dark to-kingdom-black p-6 border-b border-kingdom-gold/30 flex justify-between items-center">
         <h2 class="font-display text-2xl text-kingdom-gold">
           <i class="fa-solid fa-scale-balanced mr-2"></i> Compensation Judge
-
         </h2>
-        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">Sistema V.9.0 (Capitães)</span>
+        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">System V.11.0 (5M Fine)</span>
       </div>
 
       <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -41,7 +40,7 @@
               
               <!-- 2. Seleção de Tier -->
               <div>
-                <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Tier (Nível)</label>
+                <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Tier (Level)</label>
                 <div class="flex flex-wrap gap-2">
                   <button 
                     v-for="(tierGroup, index) in availableTiers" 
@@ -57,7 +56,7 @@
 
               <!-- 3. Seleção de Unidade Específica -->
               <div>
-                <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Unity</label>
+                <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Unit</label>
                 <div class="relative">
                   <select v-model="selectedUnitIndex" class="input-medieval w-full p-3 rounded appearance-none cursor-pointer text-sm">
                     <option v-for="(u, index) in availableUnits" :key="index" :value="index">
@@ -78,7 +77,8 @@
                 </div>
                 <div class="text-right">
                    <div class="text-[10px] uppercase tracking-wide text-kingdom-gold mb-1">Rule</div>
-                   <div v-if="selectedCategoryKey === 'captains'" class="font-bold text-white text-[10px]">
+                   
+                   <div v-if="isLevelBasedCalculation" class="font-bold text-white text-[10px]">
                      Rez Cost x Level
                    </div>
                    <div v-else class="font-bold text-white text-[10px]">
@@ -91,7 +91,7 @@
 
             <!-- CAMINHO B: Infrações Gerais/Recursos -->
             <div v-else class="mb-4 animate-fade-in">
-              <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Tipo de Infração</label>
+              <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">Violation Type</label>
               <div class="relative">
                 <select v-model="selectedGeneralIndex" class="input-medieval w-full p-3 rounded appearance-none cursor-pointer text-sm">
                   <optgroup label="General Violations">
@@ -99,12 +99,12 @@
                       {{ inf.label }}
                     </option>
                   </optgroup>
-                  <optgroup label="Outros / Mercenários">
+                  <optgroup label="Others / Mercenaries">
                      <option v-for="(inf, index) in extraInfractions" :key="inf.id" :value="index + generalInfractions.length">
                       {{ inf.label }}
                     </option>
                   </optgroup>
-                  <optgroup label="Recursos">
+                  <optgroup label="Resources">
                     <option v-for="(inf, index) in resourceInfractions" :key="inf.id" :value="index + generalInfractions.length + extraInfractions.length">
                       {{ inf.label }}
                     </option>
@@ -116,19 +116,19 @@
               </div>
             </div>
 
-            <!-- Quantidade (Reutilizado como Nível para Capitães) -->
+            <!-- Quantidade (Reutilizado como Nível para Capitães/Heróis) -->
             <div class="mb-4 mt-4">
               <label class="block font-display text-xs text-gray-400 mb-2 uppercase tracking-wide">
-                {{ selectedCategoryKey === 'captains' ? 'Captain Level' : 'Quantity' }}
+                {{ quantityLabel }}
               </label>
               <div class="flex items-center">
                 <button @click="qty > 1 ? qty-- : null" class="w-10 h-10 bg-kingdom-dark border border-kingdom-gold text-kingdom-gold rounded-l hover:bg-kingdom-gold hover:text-black transition">-</button>
                 <input type="number" v-model="qty" min="1" class="input-medieval w-full p-2 text-center border-l-0 border-r-0 h-10 font-bold">
                 <button @click="qty++" class="w-10 h-10 bg-kingdom-dark border border-kingdom-gold text-kingdom-gold rounded-r hover:bg-kingdom-gold hover:text-black transition">+</button>
               </div>
-              <!-- Dica extra para capitães -->
-              <p v-if="selectedCategoryKey === 'captains'" class="text-[10px] text-gray-500 mt-1 text-right">
-                 The level entered above will be used in the calculation.
+              <!-- Dica extra para capitães/heróis -->
+              <p v-if="isLevelBasedCalculation" class="text-[10px] text-gray-500 mt-1 text-right">
+                 Level entered above will be used in the calculation.
               </p>
             </div>
 
@@ -151,7 +151,7 @@
             
             <!-- Preview de Valor Total Calculado -->
             <p class="text-xs text-gray-500 mb-4 text-right flex justify-between items-center border-t border-gray-800 pt-2">
-                <span>Total Item:</span>
+                <span>Item Total:</span>
                 <strong class="text-kingdom-gold text-lg">
                 {{ formatCompact(previewCalculatedValue) }}
                 </strong>
@@ -164,7 +164,8 @@
 
           <!-- Agravantes Globais -->
           <div class="p-4 border-t border-gray-800">
-            <label class="block font-display text-xs text-gray-500 mb-3 uppercase tracking-wide"> Aggravating Factors (Final Multipliers) </label>
+            <label class="block font-display text-xs text-gray-500 mb-3 uppercase tracking-wide">Aggravating Factors / Fines</label>
+            
             <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group mb-3">
               <input type="checkbox" v-model="isTop100" class="hidden">
               <div class="w-5 h-5 border border-gray-600 rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
@@ -172,12 +173,22 @@
               </div>
               <span class="text-sm text-gray-400 group-hover:text-kingdom-gold transition">Top 100 (x2)</span>
             </label>
-            <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+
+            <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group mb-3">
               <input type="checkbox" v-model="isTribunal" class="hidden">
               <div class="w-5 h-5 border border-gray-600 rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
                 <i class="fa-solid fa-check text-[10px] text-black" v-show="isTribunal"></i>
               </div>
-              <span class="text-sm text-gray-400 group-hover:text-kingdom-blood transition">Court Member (x2)</span>
+              <span class="text-sm text-gray-400 group-hover:text-kingdom-blood transition">Court Litigation (x2)</span>
+            </label>
+
+            <!-- NOVA OPÇÃO: Multa de Primeira Infração -->
+            <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" v-model="isFirstOffense" class="hidden">
+              <div class="w-5 h-5 border border-gray-600 rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
+                <i class="fa-solid fa-check text-[10px] text-black" v-show="isFirstOffense"></i>
+              </div>
+              <span class="text-sm text-white font-bold group-hover:text-kingdom-gold transition">First Offense Fine (+5M)</span>
             </label>
           </div>
         </div>
@@ -196,7 +207,7 @@
                   <div class="text-sm w-full">
                     <div class="flex justify-between items-start">
                         <div class="text-gray-200 font-bold">
-                            <!-- Se for capitão, mostra [1] como qtd padrão e o nível no nome -->
+                            <!-- Se for capitão/heroi, mostra [1] como qtd padrão e o nível no nome -->
                             <span class="text-kingdom-gold">{{ item.qty }}x</span> {{ item.name }}
                         </div>
                         <div v-if="item.fineAmount > 0" class="text-[10px] bg-kingdom-blood/20 text-kingdom-blood border border-kingdom-blood/50 px-1 rounded ml-2 whitespace-nowrap" title="Multa Base Aplicada">
@@ -207,7 +218,7 @@
                     <div class="text-xs text-gray-500 mt-1 flex justify-between">
                       <div>
                         <span v-if="item.isMixed">CT (25/75)</span>
-                        <span v-else-if="item.isCaptain">Cost Rez x Level {{ item.captainLvl }}</span>
+                        <span v-else-if="item.isLevelBased">Rez Cost x Level {{ item.levelValue }}</span>
                         <span v-else>Fixed Cost</span>
                       </div>
                       <div class="font-mono text-gray-400">
@@ -264,11 +275,11 @@ const selectedCategoryKey = ref('guardsmen');
 const selectedTierIndex = ref(0);
 const selectedUnitIndex = ref(0);
 const selectedGeneralIndex = ref(0);
-// const captainLevel = ref(1); // REMOVIDO: Usamos qty
 const qty = ref(1);
 const applyBaseFine = ref(false); 
 const isTop100 = ref(false);
 const isTribunal = ref(false);
+const isFirstOffense = ref(false); // Nova variável de estado
 const cart = ref([]);
 const cartIdCounter = ref(1);
 const showCopied = ref(false);
@@ -297,6 +308,18 @@ const currentGeneralInfraction = computed(() => {
     return allGeneralInfractions[selectedGeneralIndex.value];
 });
 
+// Verifica se a categoria atual usa cálculo por nível (Capitães ou Heróis)
+const isLevelBasedCalculation = computed(() => {
+    return selectedCategoryKey.value === 'captains' || selectedCategoryKey.value === 'heroes';
+});
+
+// Define o label do input de quantidade
+const quantityLabel = computed(() => {
+    if (selectedCategoryKey.value === 'captains') return 'Captain Level';
+    if (selectedCategoryKey.value === 'heroes') return 'Hero Level';
+    return 'Quantity';
+});
+
 // Calcula qual seria o valor da multa base para a seleção atual
 const currentFineAmount = computed(() => {
     if (selectedCategoryKey.value === 'general') return 0;
@@ -314,7 +337,7 @@ const calculatedFineDescription = computed(() => {
     if (selectedCategoryKey.value === 'monsters') {
         return `+${formatCompact(currentFineAmount.value)} (1M x Tier)`;
     }
-    return `+${formatCompact(currentFineAmount.value)} (Fixo)`;
+    return `+${formatCompact(currentFineAmount.value)} (Fixed)`;
 });
 
 // Lógica de Cálculo Centralizada (Preview)
@@ -329,11 +352,9 @@ const previewCalculatedValue = computed(() => {
     } else {
         if (!currentUnit.value) return 0;
         
-        // --- LOGICA ESPECIAL PARA CAPITÃES ---
-        if (selectedCategoryKey.value === 'captains') {
-             // Rez Cost * Nível (que está em qty)
+        // --- LOGICA ESPECIAL PARA CAPITÃES E HERÓIS ---
+        if (isLevelBasedCalculation.value) {
              const rezCost = currentUnit.value.rez_cost || 0;
-             // Aqui qty funciona como o Nível do Capitão
              total = rezCost * qty.value;
         } 
         // --- LOGICA PADRÃO 25/75 ---
@@ -366,6 +387,12 @@ const finalTotal = computed(() => {
     let total = totalBase.value;
     if (isTop100.value) total *= 2;
     if (isTribunal.value) total *= 2;
+    
+    // Adiciona a Multa de Primeira Infração como valor FIXO ao final
+    if (isFirstOffense.value) {
+        total += 5000000;
+    }
+    
     return total;
 });
 
@@ -381,7 +408,7 @@ watch(selectedTierIndex, () => {
 });
 
 // --- Métodos ---
-const formatCurrency = (val) => new Intl.NumberFormat('pt-BR').format(val);
+const formatCurrency = (val) => new Intl.NumberFormat('en-US').format(val);
 const formatCompact = (num) => {
     if (num === null) return 'N/A';
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -394,11 +421,11 @@ const addToCart = () => {
 
     let name = '';
     let isMixed = false;
-    let isCaptain = false;
+    let isLevelBased = false;
     let fineApplied = 0;
     let costWithoutFine = 0;
     let itemQty = qty.value;
-    let captainLvlValue = 1;
+    let levelValue = 1;
 
     if (selectedCategoryKey.value === 'general') {
         name = currentGeneralInfraction.value.label;
@@ -406,11 +433,9 @@ const addToCart = () => {
     } else {
         name = currentUnit.value.unit;
         
-        if (selectedCategoryKey.value === 'captains') {
-            isCaptain = true;
-            // O valor digitado no input (qty) é o nível
-            captainLvlValue = qty.value;
-            // No carrinho, a quantidade conta como 1 "incidente"
+        if (isLevelBasedCalculation.value) {
+            isLevelBased = true;
+            levelValue = qty.value;
             itemQty = 1;
         } else if (currentUnit.value.cost !== null && currentUnit.value.rez_cost !== null) {
             isMixed = true;
@@ -423,41 +448,41 @@ const addToCart = () => {
     cart.value.push({
         id: cartIdCounter.value++,
         name: name,
-        qty: itemQty, // Será 1 para capitães
+        qty: itemQty, 
         totalValue: previewCalculatedValue.value,
         itemCostWithoutFine: costWithoutFine,
         fineAmount: fineApplied,
         isMixed: isMixed,
-        isCaptain: isCaptain,
-        captainLvl: captainLvlValue // Guarda o nível real
+        isLevelBased: isLevelBased,
+        levelValue: levelValue 
     });
 };
 
 const removeFromCart = (index) => cart.value.splice(index, 1);
 
 const copyReport = () => {
-  const date = new Date().toLocaleDateString('pt-BR');
+  const date = new Date().toLocaleDateString('en-US');
   const totalFormatted = formatCurrency(finalTotal.value);
   
   let itemsList = cart.value.map(item => {
     let detail = '';
     
-    // Detalhes extras no report
-    if (item.isCaptain) {
-        detail += ` (Nv.${item.captainLvl})`;
+    if (item.isLevelBased) {
+        detail += ` (Lv.${item.levelValue})`;
     }
     
     if (item.fineAmount > 0) {
-        detail += ` [+Multa ${formatCompact(item.fineAmount)}]`;
+        detail += ` [+Fine ${formatCompact(item.fineAmount)}]`;
     }
     
-    return `[${item.qty}] ${item.name} ${detail}\n    Valor: ${formatCompact(item.totalValue)}`;
+    return `[${item.qty}] ${item.name} ${detail}\n    Value: ${formatCompact(item.totalValue)}`;
   }).join('\n');
 
   const statusTop100 = isTop100.value ? "YES (+100%)" : "NO";
   const statusTribunal = isTribunal.value ? "YES (+100%)" : "NO";
+  const statusFirstOffense = isFirstOffense.value ? "YES (+5M Fixed)" : "NO";
 
-const report = `
+  const report = `
 ========================================
       KINGDOM #290 - DEBIT MEMO
 ========================================
@@ -472,6 +497,7 @@ SUBTOTAL: ${formatCompact(totalBase.value)}
 AGGRAVATING FACTORS / FEES:
 > Top 100 Offender: ${statusTop100}
 > Court Litigation: ${statusTribunal}
+> First Offense Fine: ${statusFirstOffense}
 
 ========================================
 TOTAL DUE:  ${totalFormatted} SILVER

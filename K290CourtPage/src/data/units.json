@@ -316,5 +316,26 @@
         { "unit": "Brann", "cost": 0, "rez_cost": 50 }
       ]
     }
+  ],
+  "heroes": [
+    {"tier": "Avatar",
+      "units": [
+        { "unit": "Nectarius", "cost": 0, "rez_cost": 50 },
+        { "unit": "Alrick", "cost": 0, "rez_cost": 50 },
+        { "unit": "Thaddeus", "cost": 0, "rez_cost": 50 },
+        { "unit": "Haemon", "cost": 0, "rez_cost": 50 },
+        { "unit": "Meriones", "cost": 0, "rez_cost": 50 },
+        { "unit": "Faron", "cost": 0, "rez_cost": 50 },
+        { "unit": "Thelensia", "cost": 0, "rez_cost": 50 },
+        { "unit": "Ayrin", "cost": 0, "rez_cost": 50 },
+        { "unit": "Svyatogor", "cost": 0, "rez_cost": 50 },
+        { "unit": "Ridong", "cost": 0, "rez_cost": 50 },
+        { "unit": "Guan yu", "cost": 0, "rez_cost": 50 },
+        { "unit": "Yamato", "cost": 0, "rez_cost": 50 },
+        { "unit": "Garvel", "cost": 0, "rez_cost": 50 },
+        { "unit": "Julia", "cost": 0, "rez_cost": 50 },
+        { "unit": "Matemhain", "cost": 0, "rez_cost": 50 }
+      ]
+    }
   ]
 }
