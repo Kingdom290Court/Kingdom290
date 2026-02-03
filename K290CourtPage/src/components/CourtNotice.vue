@@ -58,7 +58,7 @@
             
             <p class="mb-2">The defendant has <strong class="text-white not-italic">24 hours</strong> from the date of this notification to make the payment.</p>
             
-            <p>In the event of non-payment, the Court reserves the right to issue an order to the Royal Guard to collect said amount.</p>
+            <p>In the event of non-payment, the Court reserves the right to issue an order to the Royal Guard to collect said amount or to declare the individual an outlaw.</p>
           </div>
 
           <button @click="copyNotice" 
@@ -100,7 +100,8 @@ In accordance with the law, the defendant (${defendant.value}) is ordered to pay
 
 The defendant has 24 hours from the date of this notification to make the payment.
 
-In the event of non-payment, the Court reserves the right to issue an order to the Royal Guard to collect said amount.`;
+
+In the event of non-payment, the Court reserves the right to issue an order to the Royal Guard to collect the said amount or to declare the individual an outlaw.`;
 
   navigator.clipboard.writeText(text).then(() => {
     showCopied.value = true;
