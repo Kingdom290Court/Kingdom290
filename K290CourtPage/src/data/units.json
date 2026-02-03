@@ -297,11 +297,12 @@
         { "unit": "Aydae", "cost": 0, "rez_cost": 50 },
         { "unit": "Bernard", "cost": 0, "rez_cost": 50 },
         { "unit": "Brunhild", "cost": 0, "rez_cost": 50 },
-        { "unit": "Doria", "cost": 0, "rez_cost": 50 },
         { "unit": "Carter", "cost": 0, "rez_cost": 50 },
+        { "unit": "Doria", "cost": 0, "rez_cost": 50 },
         { "unit": "Dustan", "cost": 0, "rez_cost": 50 },
         { "unit": "Ingrid", "cost": 0, "rez_cost": 50 },
         { "unit": "Lucius", "cost": 0, "rez_cost": 50 },
+        { "unit": "Stror", "cost": 0, "rez_cost": 50 },
         { "unit": "Ye Ho-Sung", "cost": 0, "rez_cost": 50 }
       ]
     },

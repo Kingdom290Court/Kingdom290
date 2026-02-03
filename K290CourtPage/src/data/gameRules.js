@@ -1,9 +1,9 @@
 // Regras Visuais (Usadas no Grid de exibição)
 export const rules = [
     { 
-      title: 'First Offense', 
+      title: 'First Offense (Reduction)', 
       value: '5M', 
-      desc: 'Fixed fine for the first illegal attack (Warning).', 
+      desc: 'Adjusted fine for the first illegal attack (Warning). This is a reduction to the amount due in gold.', 
       icon: 'fa-solid fa-hand-paper' 
     },
     { 
@@ -21,7 +21,7 @@ export const rules = [
     { 
       title: 'Captains', 
       value: 'Rez Cost x Level', 
-      desc: 'Revival cost (50) multiplied by captain level.', 
+      desc: 'Resurrection cost (50) multiplied by the captains level. The captains stars do not affect the value.', 
       icon: 'fa-solid fa-chess-king' 
     },
     { 
