@@ -33,7 +33,7 @@
         <i class="fa-solid fa-coins text-kingdom-gold text-2xl mt-1"></i>
         <div>
           <h4 class="font-display text-kingdom-gold">Real Exchange</h4>
-          <p class="text-sm text-gray-300">1 Gold = <strong>10k Silver</strong>. 1 Tar = <strong>1k Silver</strong>. Payment via gold mines possible under agreement.</p>
+          <p class="text-sm text-gray-300">1 Gold = <strong>3,75k Silver (3750)</strong>. 1 Tar = <strong>1k Silver</strong>. Payment via gold mines possible under agreement.</p>
         </div>
       </div>
     </div>

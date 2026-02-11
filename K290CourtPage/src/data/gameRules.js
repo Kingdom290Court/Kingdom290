@@ -74,7 +74,7 @@ export const rules = [
   
   // Resource Infractions (Multipliers)
   export const resourceInfractions = [
-    { label: 'Debt: Gold', hasQty: true, qtyLabel: 'Gold Amount', multiplier: 10000, type: 'resource' },
+    { label: 'Debt: Gold', hasQty: true, qtyLabel: 'Gold Amount', multiplier: 3750, type: 'resource' },
     { label: 'Debt: Tar', hasQty: true, qtyLabel: 'Tar Amount', multiplier: 1000, type: 'resource' },
     { label: 'Debt: Stone', hasQty: true, qtyLabel: 'Stone Amount', multiplier: 0.1, type: 'resource' },
     { label: 'Debt: Wood', hasQty: true, qtyLabel: 'Wood Amount', multiplier: 0.1, type: 'resource' },

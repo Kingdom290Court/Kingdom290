@@ -28,7 +28,7 @@ export const generalInfractions = [
 ];
 
 export const resourceInfractions = [
-    { id: 'res_gold', label: 'Debt: Gold', hasQty: true, qtyLabel: 'Qt of Gold', multiplier: 10000, type: 'resource' },
+    { id: 'res_gold', label: 'Debt: Gold', hasQty: true, qtyLabel: 'Qt of Gold', multiplier: 3750, type: 'resource' },
     { id: 'res_tar',  label: 'Debt: Tar', hasQty: true, qtyLabel: 'Qt of Tar', multiplier: 1000, type: 'resource' },
     { id: 'res_stone', label: 'Debt: Stone', hasQty: true, qtyLabel: 'Stone Amount', multiplier: 0.1, type: 'resource' },
     { id: 'res_wood', label: 'Debt: Wood', hasQty: true, qtyLabel: 'Wood Amount', multiplier: 0.1, type: 'resource' },
