@@ -33,7 +33,7 @@ export const rules = [
     { 
       title: 'Mercenaries', 
       value: '500k + CT', 
-      desc: 'Fixed value per incident/stack + revival cost.', 
+      desc: 'Fixed value per incident/stack + revival cost. Note: Free Mercenaries* are grouped in stacks of 100 units, so the fine is applied per stack.', 
       icon: 'fa-brands fa-wolf-pack-battalion' 
     },
     { 

@@ -3,6 +3,7 @@ import HeaderHero from './components/HeaderHero.vue';
 import RulesGrid from './components/RulesGrid.vue';
 import PenaltyCalculator from './components/PenaltyCalculator.vue';
 import CourtNotice from './components/CourtNotice.vue';
+import CalculatorGuide from './components/CalculatorGuide.vue';
 
 
 </script>
@@ -15,7 +16,8 @@ import CourtNotice from './components/CourtNotice.vue';
     <PenaltyCalculator />
     <!-- Aviso do Tribunal Isolado -->
     <CourtNotice />
-    
+    <!-- Guia de Uso da Calculadora -->
+    <CalculatorGuide />
     
     <footer class="mt-20 text-center text-gray-600 text-xs border-t border-gray-900 pt-8 pb-8">
       <p class="font-display text-kingdom-goldDim mb-2">Kingdom #290 &bull; Total Battle</p>
