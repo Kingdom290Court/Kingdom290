@@ -254,16 +254,41 @@
     {
       "tier": "T6",
       "units": [
-        { "unit": "T6 Arbalester / Trailseeker", "cost": 80000, "rez_cost": 80 },
-        { "unit": "T6 Legionary / Knight", "cost": 900000, "rez_cost": 900 },
-        { "unit": "T6 Chariot / Rhino Rider", "cost": 1600000, "rez_cost": 1600 },
-        { "unit": "T6 Sphinx / Shedu", "cost": 1700000, "rez_cost": 1700 },
-        { "unit": "T6 Pathfinder / Pionnier", "cost": 400000, "rez_cost": 400 },
+        { "unit": "T6 Arbalester", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T6 Trailseeker", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T6 Legionary", "cost": 900000, "rez_cost": 900 },
+        { "unit": "T6 Knight", "cost": 900000, "rez_cost": 900 },
+        { "unit": "T6 Chariot", "cost": 1600000, "rez_cost": 1600 },
+        { "unit": "T6 Rhino Rider", "cost": 1600000, "rez_cost": 1600 },
+        { "unit": "T6 Sphinx", "cost": 1700000, "rez_cost": 1700 },
+        { "unit": "T6 Shedu", "cost": 1700000, "rez_cost": 1700 },
+        { "unit": "T6 Pathfinder", "cost": 400000, "rez_cost": 400 },
+        { "unit": "T6 Pionnier", "cost": 400000, "rez_cost": 400 },
         { "unit": "T6 Trebuchet", "cost": 2300000, "rez_cost": 2300 },
         { "unit": "T6 Death Chariots", "cost": 2600000, "rez_cost": 2600 },
         { "unit": "T6 Bone Golem", "cost": 2900000, "rez_cost": 2900 },
         { "unit": "T6 Ent", "cost": 3400000, "rez_cost": 3400 },
-        { "unit": "T6 Cursed Dendroids", "cost": 3500000, "rez_cost": 3500 }
+        { "unit": "T6 Cursed Dendroids", "cost": 3500000, "rez_cost": 3500 },
+        { "unit": "T6 Abomination", "cost": 4500000, "rez_cost": 4000 },
+        { "unit": "T6 Archdemons", "cost": 4500000, "rez_cost": 4500 }
+      ]
+    },
+    {
+      "tier": "T7",
+      "units": [
+        { "unit": "T7 Palintone", "cost": 800000, "rez_cost": 800 },
+        { "unit": "T7 Jungle King", "cost": 2640000, "rez_cost": 2640 },
+        { "unit": "T7 Sea Lord", "cost": 3200000, "rez_cost": 3200 },
+        { "unit": "T7 Lightning Lord", "cost": 3600000, "rez_cost": 3600 },
+        { "unit": "T7 Sphynx", "cost": 3060000, "rez_cost": 3060 },
+        { "unit": "T7 Shedu", "cost": 3060000, "rez_cost": 3060 },
+        { "unit": "T7 Golden Dragon", "cost": 4000000, "rez_cost": 4000 },
+        { "unit": "T7 Overlord", "cost": 4800000, "rez_cost": 4800 },
+        { "unit": "T7 Life Dragon", "cost": 5600000, "rez_cost": 5600 },
+        { "unit": "T7 Cursed Dragon", "cost": 7400000, "rez_cost": 7400 },
+        { "unit": "T7 Sandworm", "cost": 10200000, "rez_cost": 10200 },
+        { "unit": "T7 Fire Lord", "cost": 13100000, "rez_cost": 13100 },
+        { "unit": "T7 Epic Monster Hunter VII", "cost": 13100000, "rez_cost": 13100 }
       ]
     }
   ],

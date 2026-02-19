@@ -5,7 +5,7 @@
         <h2 class="font-display text-2xl text-kingdom-gold">
           <i class="fa-solid fa-scale-balanced mr-2"></i> Compensation Judge
         </h2>
-        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">System V.13.0 (Standalone)</span>
+        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">System V.14.0 (High Mercs)</span>
       </div>
 
       <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -131,30 +131,59 @@
               </p>
             </div>
 
-            <!-- CHECKBOX DE MULTA ADICIONAL -->
-            <div v-if="selectedCategoryKey !== 'general'" class="mb-6 p-3 bg-kingdom-blood/10 border border-kingdom-blood/30 rounded">
-                <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
-                  <input type="checkbox" v-model="applyBaseFine" class="hidden">
-                  <div class="w-5 h-5 border border-kingdom-blood rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
-                    <i class="fa-solid fa-check text-[10px] text-white" v-show="applyBaseFine"></i>
-                  </div>
-                  <div class="flex flex-col">
-                      <span class="text-sm font-bold text-gray-200 group-hover:text-kingdom-gold transition">Add Base Fine</span>
-                      <span class="text-[10px] text-gray-400">
-                          {{ calculatedFineDescription }}
-                      </span>
-                  </div>
-                </label>
+            <!-- OPTIONS BLOCK: Multas e Descontos -->
+            <div v-if="selectedCategoryKey !== 'general'" class="space-y-3 mb-6">
+                
+                <!-- Multa Base -->
+                <div class="p-3 bg-kingdom-blood/10 border border-kingdom-blood/30 rounded">
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" v-model="applyBaseFine" class="hidden">
+                    <div class="w-5 h-5 border border-kingdom-blood rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
+                        <i class="fa-solid fa-check text-[10px] text-white" v-show="applyBaseFine"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-bold text-gray-200 group-hover:text-kingdom-gold transition">Add Base Fine</span>
+                        <span class="text-[10px] text-gray-400">
+                            {{ calculatedFineDescription }}
+                        </span>
+                    </div>
+                    </label>
+                </div>
+
+                <!-- Cupom de Desconto (Novo) -->
+                <div class="p-3 bg-green-900/20 border border-green-500/30 rounded">
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group mb-2">
+                        <input type="checkbox" v-model="applyDiscount" class="hidden">
+                        <div class="w-5 h-5 border border-green-500 rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
+                            <i class="fa-solid fa-check text-[10px] text-white" v-show="applyDiscount"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-200 group-hover:text-green-400 transition">Apply Discount Coupon</span>
+                    </label>
+                    
+                    <div v-if="applyDiscount" class="pl-8 animate-fade-in">
+                        <div class="flex items-center gap-4">
+                            <input type="range" v-model.number="discountPercentage" min="10" max="50" step="5" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-green-500">
+                            <span class="text-green-400 font-bold font-mono">{{ discountPercentage }}%</span>
+                        </div>
+                        <p class="text-[10px] text-gray-400 mt-1">Discount applied to troop cost (before fines).</p>
+                    </div>
+                </div>
+
             </div>
 
             
             <!-- Preview -->
-            <p class="text-xs text-gray-500 mb-4 text-right flex justify-between items-center border-t border-gray-800 pt-2">
-                <span>Item Total:</span>
-                <strong class="text-kingdom-gold text-lg">
-                {{ formatCompact(previewCalculatedValue) }}
-                </strong>
-            </p>
+            <div class="text-right border-t border-gray-800 pt-2 mb-4">
+                <div v-if="applyDiscount" class="text-xs text-green-500 mb-1">
+                    Discount (-{{ discountPercentage }}%): -{{ formatCompact(previewCalculatedDiscount) }}
+                </div>
+                <div class="flex justify-between items-center text-xs text-gray-500">
+                    <span>Item Total:</span>
+                    <strong class="text-kingdom-gold text-lg">
+                    {{ formatCompact(previewCalculatedValue) }}
+                    </strong>
+                </div>
+            </div>
 
             <button @click="addToCart" :disabled="previewCalculatedValue === 0" class="w-full bg-kingdom-gold hover:bg-white text-black font-display font-bold uppercase py-3 rounded transition duration-300 flex items-center justify-center gap-2 shadow-lg shadow-kingdom-gold/20 disabled:opacity-50 disabled:cursor-not-allowed">
               <i class="fa-solid fa-plus"></i> Add to List
@@ -206,8 +235,13 @@
                         <div class="text-gray-200 font-bold">
                             <span class="text-kingdom-gold">{{ item.qty }}x</span> {{ item.name }}
                         </div>
-                        <div v-if="item.fineAmount > 0" class="text-[10px] bg-kingdom-blood/20 text-kingdom-blood border border-kingdom-blood/50 px-1 rounded ml-2 whitespace-nowrap" title="Multa Base Aplicada">
-                            +{{ formatCompact(item.fineAmount) }} Fine
+                        <div class="flex flex-col items-end">
+                            <div v-if="item.fineAmount > 0" class="text-[10px] bg-kingdom-blood/20 text-kingdom-blood border border-kingdom-blood/50 px-1 rounded ml-2 whitespace-nowrap mb-1">
+                                +{{ formatCompact(item.fineAmount) }} Fine
+                            </div>
+                            <div v-if="item.discountAmount > 0" class="text-[10px] bg-green-900/40 text-green-400 border border-green-500/30 px-1 rounded ml-2 whitespace-nowrap">
+                                -{{ item.discountPercent }}% Off
+                            </div>
                         </div>
                     </div>
                     <div class="text-xs text-gray-500 mt-1 flex justify-between">
@@ -217,7 +251,7 @@
                         <span v-else>Fixed Cost</span>
                       </div>
                       <div class="font-mono text-gray-400">
-                          {{ formatCompact(item.itemCostWithoutFine) }} (CT)
+                          {{ formatCompact(item.itemCostWithoutFineOrDiscount) }} (Base)
                       </div>
                     </div>
                   </div>
@@ -266,8 +300,6 @@
 import { ref, computed, watch } from 'vue';
 import { unitsDB, categoryLabels, generalInfractions, resourceInfractions, extraInfractions } from '../data/dataCompensation';
 
-// REMOVIDO: const emit = defineEmits(['update:total']);
-
 // --- Estado ---
 const selectedCategoryKey = ref('guardsmen'); 
 const selectedTierIndex = ref(0);
@@ -275,6 +307,8 @@ const selectedUnitIndex = ref(0);
 const selectedGeneralIndex = ref(0);
 const qty = ref(1);
 const applyBaseFine = ref(false); 
+const applyDiscount = ref(false); // Checkbox de Desconto
+const discountPercentage = ref(10); // Valor do Desconto (10-50)
 const isTop100 = ref(false);
 const isTribunal = ref(false);
 const isFirstOffense = ref(false);
@@ -312,6 +346,12 @@ const isLevelBasedCalculation = computed(() => {
 const quantityLabel = computed(() => {
     if (selectedCategoryKey.value === 'captains') return 'Captain Level';
     if (selectedCategoryKey.value === 'heroes') return 'Hero Level';
+    
+    // Feature: Dynamic label for general infractions
+    if (selectedCategoryKey.value === 'general') {
+       return currentGeneralInfraction.value?.qtyLabel || 'Quantity';
+    }
+
     return 'Quantity';
 });
 
@@ -334,6 +374,34 @@ const calculatedFineDescription = computed(() => {
     return `+${formatCompact(currentFineAmount.value)} (Fixed)`;
 });
 
+// Calcula apenas o valor do desconto para exibição
+const previewCalculatedDiscount = computed(() => {
+    if (selectedCategoryKey.value === 'general' || !applyDiscount.value) return 0;
+    
+    // Calcula o custo base (sem multa) para aplicar o desconto
+    let baseCost = 0;
+    if (currentUnit.value) {
+        if (isLevelBasedCalculation.value) {
+             const rezCost = currentUnit.value.rez_cost || 0;
+             baseCost = rezCost * qty.value;
+        } else {
+            const prodCost = currentUnit.value.cost;
+            const rezCost = currentUnit.value.rez_cost;
+            const totalQty = qty.value;
+
+            if (prodCost === null && rezCost !== null) baseCost += rezCost * totalQty;
+            else if (rezCost === null && prodCost !== null) baseCost += prodCost * totalQty;
+            else if (prodCost !== null && rezCost !== null) {
+                const qtyProd = totalQty * 0.25;
+                const qtyRez = totalQty * 0.75;
+                baseCost += (qtyProd * prodCost) + (qtyRez * rezCost);
+            }
+        }
+    }
+    
+    return baseCost * (discountPercentage.value / 100);
+});
+
 const previewCalculatedValue = computed(() => {
     let total = 0;
 
@@ -344,23 +412,33 @@ const previewCalculatedValue = computed(() => {
     } else {
         if (!currentUnit.value) return 0;
         
+        let baseCost = 0;
+
         if (isLevelBasedCalculation.value) {
              const rezCost = currentUnit.value.rez_cost || 0;
-             total = rezCost * qty.value;
+             baseCost = rezCost * qty.value;
         } 
         else {
             const prodCost = currentUnit.value.cost;
             const rezCost = currentUnit.value.rez_cost;
             const totalQty = qty.value;
 
-            if (prodCost === null && rezCost !== null) total += rezCost * totalQty;
-            else if (rezCost === null && prodCost !== null) total += prodCost * totalQty;
+            if (prodCost === null && rezCost !== null) baseCost += rezCost * totalQty;
+            else if (rezCost === null && prodCost !== null) baseCost += prodCost * totalQty;
             else if (prodCost !== null && rezCost !== null) {
                 const qtyProd = totalQty * 0.25;
                 const qtyRez = totalQty * 0.75;
-                total += (qtyProd * prodCost) + (qtyRez * rezCost);
+                baseCost += (qtyProd * prodCost) + (qtyRez * rezCost);
             }
         }
+
+        // Aplica o desconto ao custo base
+        if (applyDiscount.value) {
+            const discount = baseCost * (discountPercentage.value / 100);
+            baseCost -= discount;
+        }
+
+        total = baseCost;
     }
 
     if (applyBaseFine.value && selectedCategoryKey.value !== 'general') {
@@ -387,6 +465,8 @@ watch(selectedCategoryKey, () => {
     selectedUnitIndex.value = 0;
     qty.value = 1;
     applyBaseFine.value = false;
+    applyDiscount.value = false; // Reset discount
+    discountPercentage.value = 10;
 });
 watch(selectedTierIndex, () => {
     selectedUnitIndex.value = 0;
@@ -408,26 +488,48 @@ const addToCart = () => {
     let isMixed = false;
     let isLevelBased = false;
     let fineApplied = 0;
-    let costWithoutFine = 0;
+    let discountApplied = 0;
+    let discountPercent = 0;
+    let costWithoutFineOrDiscount = 0;
     let itemQty = qty.value;
     let levelValue = 1;
 
     if (selectedCategoryKey.value === 'general') {
         name = currentGeneralInfraction.value.label;
-        costWithoutFine = previewCalculatedValue.value;
+        costWithoutFineOrDiscount = previewCalculatedValue.value; // No discount for general
     } else {
         name = currentUnit.value.unit;
         
+        // Calcula o custo base novamente para armazenar no item sem modificadores
+        let baseCost = 0;
         if (isLevelBasedCalculation.value) {
             isLevelBased = true;
             levelValue = qty.value;
             itemQty = 1;
-        } else if (currentUnit.value.cost !== null && currentUnit.value.rez_cost !== null) {
-            isMixed = true;
+            const rezCost = currentUnit.value.rez_cost || 0;
+            baseCost = rezCost * qty.value;
+        } else {
+            const prodCost = currentUnit.value.cost;
+            const rezCost = currentUnit.value.rez_cost;
+            const totalQty = qty.value;
+            
+            if (prodCost === null && rezCost !== null) baseCost += rezCost * totalQty;
+            else if (rezCost === null && prodCost !== null) baseCost += prodCost * totalQty;
+            else if (prodCost !== null && rezCost !== null) {
+                isMixed = true;
+                const qtyProd = totalQty * 0.25;
+                const qtyRez = totalQty * 0.75;
+                baseCost += (qtyProd * prodCost) + (qtyRez * rezCost);
+            }
+        }
+        costWithoutFineOrDiscount = baseCost;
+
+        if (applyDiscount.value) {
+            discountPercent = discountPercentage.value;
+            discountApplied = baseCost * (discountPercent / 100);
         }
         
         fineApplied = applyBaseFine.value ? currentFineAmount.value : 0;
-        costWithoutFine = previewCalculatedValue.value - fineApplied;
     }
 
     cart.value.push({
@@ -435,8 +537,10 @@ const addToCart = () => {
         name: name,
         qty: itemQty, 
         totalValue: previewCalculatedValue.value,
-        itemCostWithoutFine: costWithoutFine,
+        itemCostWithoutFineOrDiscount: costWithoutFineOrDiscount,
         fineAmount: fineApplied,
+        discountAmount: discountApplied,
+        discountPercent: discountPercent,
         isMixed: isMixed,
         isLevelBased: isLevelBased,
         levelValue: levelValue 
@@ -456,6 +560,10 @@ const copyReport = () => {
         detail += ` (Lv.${item.levelValue})`;
     }
     
+    if (item.discountAmount > 0) {
+        detail += ` [-${item.discountPercent}% Off]`;
+    }
+
     if (item.fineAmount > 0) {
         detail += ` [+Fine ${formatCompact(item.fineAmount)}]`;
     }

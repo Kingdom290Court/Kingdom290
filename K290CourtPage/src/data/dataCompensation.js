@@ -16,6 +16,7 @@ export const unitsDB = unitData;
 
 export const extraInfractions = [
   { id: 'merc_generic', label: 'Mercenaries (Generic/Stack)', base: 500000, hasQty: true, type: 'basic' },
+    { id: 'gen_high_merc', label: 'High Mercenaries (Hero Level x 1M)', base: 1000000, hasQty: true, qtyLabel: 'Hero Level', type: 'basic' }
 ];
 
 // Infrações Gerais (Mantidas pois não estão no JSON de unidades)
@@ -24,7 +25,8 @@ export const generalInfractions = [
     { id: 'gen_dm',      label: 'Dragon Mound Theft', base: 500000, hasQty: false, type: 'basic' },
     { id: 'gen_portal',  label: 'Destruction: Portals', base: 1000000, hasQty: true, qtyLabel: 'Portal Qty', type: 'basic' },
     { id: 'gen_fort',    label: 'Destruction: Clan fort', base: 5000000, hasQty: false, type: 'basic' },
-    { id: 'gen_cap',     label: 'Destruction: Clan Capital', base: 10000000, hasQty: false, type: 'basic' }
+    { id: 'gen_cap',     label: 'Destruction: Clan Capital', base: 10000000, hasQty: false, type: 'basic' },
+    
 ];
 
 export const resourceInfractions = [
