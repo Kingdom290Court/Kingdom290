@@ -256,8 +256,9 @@
       "units": [
         { "unit": "T6 Arbalester", "cost": 80000, "rez_cost": 80 },
         { "unit": "T6 Trailseeker", "cost": 80000, "rez_cost": 80 },
-        { "unit": "T6 Legionary", "cost": 900000, "rez_cost": 900 },
-        { "unit": "T6 Knight", "cost": 900000, "rez_cost": 900 },
+        { "unit": "T6 Legionary", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T6 Knight", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T6 Nezha", "cost": 80000, "rez_cost": 80 },
         { "unit": "T6 Chariot", "cost": 1600000, "rez_cost": 1600 },
         { "unit": "T6 Rhino Rider", "cost": 1600000, "rez_cost": 1600 },
         { "unit": "T6 Sphinx", "cost": 1700000, "rez_cost": 1700 },
@@ -276,6 +277,13 @@
     {
       "tier": "T7",
       "units": [
+        { "unit": "T7 Arbalester", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T7 Trailseeker", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T7 Legionary", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T7 Knight", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T7 Nezha", "cost": 80000, "rez_cost": 80 },
+        { "unit": "T7 Chariot", "cost": 1600000, "rez_cost": 1600 },
+        { "unit": "T7 Rhino Rider", "cost": 1600000, "rez_cost": 1600 },
         { "unit": "T7 Palintone", "cost": 800000, "rez_cost": 800 },
         { "unit": "T7 Jungle King", "cost": 2640000, "rez_cost": 2640 },
         { "unit": "T7 Sea Lord", "cost": 3200000, "rez_cost": 3200 },
@@ -287,9 +295,28 @@
         { "unit": "T7 Life Dragon", "cost": 5600000, "rez_cost": 5600 },
         { "unit": "T7 Cursed Dragon", "cost": 7400000, "rez_cost": 7400 },
         { "unit": "T7 Sandworm", "cost": 10200000, "rez_cost": 10200 },
-        { "unit": "T7 Fire Lord", "cost": 13100000, "rez_cost": 13100 },
-        { "unit": "T7 Epic Monster Hunter VII", "cost": 13100000, "rez_cost": 13100 }
+        { "unit": "T7 Fire Lord", "cost": 13100000, "rez_cost": 13100 }
       ]
+    },
+    {
+      "tier": "Especial II",
+      "units": [
+          { "unit": "TII Highlander", "cost": 80000, "rez_cost": 80 },
+          { "unit": "TII Pounder", "cost": 80000, "rez_cost": 80 },
+          { "unit": "TII Slavic Warrior", "cost": 80000, "rez_cost": 80 },
+          { "unit": "TII Scarface", "cost": 80000, "rez_cost": 80 },
+          { "unit": "TII Quicksand", "cost": 160000, "rez_cost": 160},
+          { "unit": "TII Galloper", "cost": 160000, "rez_cost": 160},
+          { "unit": "TII Warregal", "cost": 1600000, "rez_cost": 1600 },
+          { "unit": "TII Jago", "cost": 1600000, "rez_cost": 1600 },
+          { "unit": "TII Grace", "cost": 400000, "rez_cost": 400 },
+          { "unit": "TII Ariel", "cost": 800000, "rez_cost": 800 },
+          { "unit": "TII Wardens", "cost": 3400000, "rez_cost": 3400 },
+          { "unit": "TII Demonic Salamanders", "cost": 3000000, "rez_cost": 3000 },
+          { "unit": "TII Eternal Cannoneers", "cost": 3200000, "rez_cost": 3200 },
+          { "unit": "TII Wyverns", "cost": 5000000, "rez_cost": 5000 }
+      ]
+
     }
   ],
   "captains": [
