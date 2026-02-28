@@ -355,6 +355,7 @@
         { "unit": "Ingrid", "cost": 0, "rez_cost": 50 },
         { "unit": "Lucius", "cost": 0, "rez_cost": 50 },
         { "unit": "Stror", "cost": 0, "rez_cost": 50 },
+        { "unit": "Farhad", "cost": 0, "rez_cost": 50 },
         { "unit": "Ye Ho-Sung", "cost": 0, "rez_cost": 50 }
       ]
     },
