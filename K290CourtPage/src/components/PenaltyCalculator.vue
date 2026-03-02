@@ -5,7 +5,7 @@
         <h2 class="font-display text-2xl text-kingdom-gold">
           <i class="fa-solid fa-scale-balanced mr-2"></i> Compensation Judge
         </h2>
-        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">System V.15.0 (Short Memo)</span>
+        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">System V.15.1 (Stable / Short Memo)</span>
       </div>
 
       <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -275,7 +275,7 @@
                 <div class="text-[10px] text-gray-500 mt-1 uppercase">Silver</div>
              </div>
 
-             <!-- Botão Principal: Memo Completo -->
+             <!-- Botões de Exportação -->
              <button @click="copyReport" v-if="cart.length > 0"
                     class="mt-4 w-full bg-kingdom-blood hover:bg-kingdom-bloodLight text-white font-display uppercase text-sm tracking-widest py-3 rounded border border-transparent hover:border-kingdom-gold transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
                 <span v-if="!showCopied">Copy Full Debit Memo</span>
@@ -283,7 +283,6 @@
                 <i class="fa-solid" :class="showCopied ? 'fa-check' : 'fa-scroll'"></i>
              </button>
 
-             <!-- Botão Secundário: Memo Resumido (Agrupado) -->
              <button @click="copyShortReport" v-if="cart.length > 0"
                     class="mt-2 w-full bg-black/40 hover:bg-white/10 text-gray-300 border border-gray-700 hover:border-white font-display uppercase text-[10px] tracking-widest py-2 rounded transition-all duration-300 flex items-center justify-center gap-2">
                 <span v-if="!showShortCopied">Copy Minimum Memo (Grouped)</span>
@@ -299,7 +298,9 @@
     <transition name="fade">
         <div v-if="showCopied || showShortCopied" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-kingdom-gold text-kingdom-black px-6 py-3 rounded shadow-xl border border-white z-50 flex items-center gap-3 pointer-events-none">
             <i class="fa-solid fa-circle-check"></i>
-            <span class="font-bold">{{ showShortCopied ? 'Summary Report copied to clipboard' : 'Full Report copied to clipboard' }}</span>
+            <span class="font-bold">
+                {{ showShortCopied ? 'Summary Report copied!' : 'Full Report copied!' }}
+            </span>
         </div>
     </transition>
   </section>
@@ -323,8 +324,10 @@ const isTribunal = ref(false);
 const isFirstOffense = ref(false);
 const cart = ref([]);
 const cartIdCounter = ref(1);
+
+// Modais / Toasts
 const showCopied = ref(false);
-const showShortCopied = ref(false); // Estado para o Toast do Memo Curto
+const showShortCopied = ref(false); 
 
 const allGeneralInfractions = [...generalInfractions, ...extraInfractions, ...resourceInfractions];
 
@@ -478,7 +481,7 @@ watch(selectedTierIndex, () => {
     selectedUnitIndex.value = 0;
 });
 
-// --- Métodos ---
+// --- Métodos Auxiliares ---
 const formatCurrency = (val) => new Intl.NumberFormat('en-US').format(val);
 const formatCompact = (num) => {
     if (num === null) return 'N/A';
@@ -487,6 +490,7 @@ const formatCompact = (num) => {
     return num;
 };
 
+// --- Ações da UI ---
 const addToCart = () => {
     if (previewCalculatedValue.value === 0) return;
 
@@ -515,7 +519,7 @@ const addToCart = () => {
         if (isLevelBasedCalculation.value) {
             isLevelBased = true;
             levelValue = qty.value;
-            itemQty = 1;
+            itemQty = 1; // Para Herois/Capitães a qtd real é o nível, 1 significa '1 incidente'
             const rezCost = currentUnit.value.rez_cost || 0;
             baseCost = rezCost * qty.value;
         } else {
@@ -544,7 +548,7 @@ const addToCart = () => {
 
     cart.value.push({
         id: cartIdCounter.value++,
-        categoryKey: selectedCategoryKey.value, // Salvo para agrupar depois
+        categoryKey: selectedCategoryKey.value, 
         categoryLabel: categoryLabelValue,
         tierLabel: tierLabelValue,
         name: name,
@@ -562,7 +566,7 @@ const addToCart = () => {
 
 const removeFromCart = (index) => cart.value.splice(index, 1);
 
-// REPORT COMPLETO ORIGINAL
+// --- Exportações ---
 const copyReport = () => {
   const date = new Date().toLocaleDateString('en-US');
   const totalFormatted = formatCurrency(finalTotal.value);
@@ -586,51 +590,38 @@ const copyReport = () => {
   generateAndCopy(date, itemsList, totalFormatted, false);
 };
 
-// REPORT RESUMIDO (AGRUPADO)
 const copyShortReport = () => {
   const date = new Date().toLocaleDateString('en-US');
   const totalFormatted = formatCurrency(finalTotal.value);
   
   const groups = {};
 
-  // Agrupa os itens
   cart.value.forEach(item => {
-      let groupKey = item.name; // Fallback: nome original
+      let groupKey = item.name; 
 
-      // Categorias que podem ser agrupadas somando quantidades (tropas/monstros)
       const aggregatableCategories = ['guardsmen', 'specialists', 'engineer_corps', 'monsters', 'mercenaries'];
       
       if (aggregatableCategories.includes(item.categoryKey)) {
-          // Cria o nome do grupo: ex "Guardsmen T1"
           groupKey = `${item.categoryLabel} ${item.tierLabel}`;
       } else if (item.isLevelBased) {
-          // Heróis e Capitães mantemos separados com o Nível
           groupKey = `${item.name} (Lv.${item.levelValue})`;
       }
 
       if (!groups[groupKey]) {
-          groups[groupKey] = {
-              name: groupKey,
-              qty: 0,
-              totalValue: 0
-          };
+          groups[groupKey] = { name: groupKey, qty: 0, totalValue: 0 };
       }
 
       groups[groupKey].qty += item.qty;
       groups[groupKey].totalValue += item.totalValue;
   });
 
-  // Constrói a lista a partir dos grupos
   let itemsList = Object.values(groups).map(g => {
-      // Se a quantidade for 0 (caso de bugs de input), omite. 
-      // Em herois/capitães a qtd é 1 (incidente).
       return `[${g.qty}] ${g.name}\n    Value: ${formatCompact(g.totalValue)}`;
   }).join('\n');
 
   generateAndCopy(date, itemsList, totalFormatted, true);
 };
 
-// Lógica Comum de Montagem do Texto e Clipboard
 const generateAndCopy = (date, itemsList, totalFormatted, isShort) => {
   const statusTop100 = isTop100.value ? "YES (+100%)" : "NO";
   const statusTribunal = isTribunal.value ? "YES (+100%)" : "NO";
@@ -643,6 +634,7 @@ const generateAndCopy = (date, itemsList, totalFormatted, isShort) => {
       KINGDOM #290 - ${reportTitle}
 ========================================
 DATE: ${date}
+
 ITEMIZED BREAKDOWN:
 ----------------------------------------
 ${itemsList}
@@ -653,11 +645,12 @@ AGGRAVATING FACTORS / FEES:
 > Top 100 Offender: ${statusTop100}
 > Court Litigation: ${statusTribunal}
 > First Offense Fine: ${statusFirstOffense}
+
 ========================================
 TOTAL DUE:  ${totalFormatted} SILVER
 ========================================
-NOTE: Payment must be made within 24 hours 
-to avoid sanctions from the Royal Guard.
+NOTE: Immediate payment requested to
+avoid sanctions from the Royal Guard.
 `.trim();
 
   navigator.clipboard.writeText(report).then(() => {

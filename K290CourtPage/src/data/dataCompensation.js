@@ -34,5 +34,6 @@ export const resourceInfractions = [
     { id: 'res_tar',  label: 'Debt: Tar', hasQty: true, qtyLabel: 'Qt of Tar', multiplier: 1000, type: 'resource' },
     { id: 'res_stone', label: 'Debt: Stone', hasQty: true, qtyLabel: 'Stone Amount', multiplier: 0.1, type: 'resource' },
     { id: 'res_wood', label: 'Debt: Wood', hasQty: true, qtyLabel: 'Wood Amount', multiplier: 0.1, type: 'resource' },
+    { id: 'res_iron', label: 'Debt: Iron', hasQty: true, qtyLabel: 'Iron Amount', multiplier: 0.1, type: 'resource' },
     { id: 'res_food', label: 'Debt: Food', hasQty: true, qtyLabel: 'Food Amount', multiplier: 0.1, type: 'resource' }
   ];
