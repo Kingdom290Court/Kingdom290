@@ -1,11 +1,11 @@
 // Regras Visuais (Usadas no Grid de exibição)
 export const rules = [
-    { 
-      title: 'First Offense (Reduction)', 
-      value: '5M', 
-      desc: 'Adjusted fine for the first illegal attack (Warning). This is a reduction to the amount due in gold.', 
-      icon: 'fa-solid fa-hand-paper' 
-    },
+    // { 
+    //   title: 'First Offense (Reduction)', 
+    //   value: '5M', 
+    //   desc: 'Adjusted fine for the first illegal attack (Warning). This is a reduction to the amount due in gold.', 
+    //   icon: 'fa-solid fa-hand-paper' 
+    // },
     { 
       title: 'Illegal Attack', 
       value: '500K Silver + CT', 

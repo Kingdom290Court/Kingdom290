@@ -5,7 +5,7 @@
         <h2 class="font-display text-2xl text-kingdom-gold">
           <i class="fa-solid fa-scale-balanced mr-2"></i> Compensation Judge
         </h2>
-        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">System V.15.1 (Stable / Short Memo)</span>
+        <span class="text-xs text-gray-500 uppercase tracking-widest border border-gray-700 px-2 py-1 rounded">System V.15.2 (No First Offense)</span>
       </div>
 
       <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -210,14 +210,6 @@
               <span class="text-sm text-gray-400 group-hover:text-kingdom-blood transition">Court Litigation (x2)</span>
             </label>
 
-            <!-- Multa de Primeira Infração -->
-            <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
-              <input type="checkbox" v-model="isFirstOffense" class="hidden">
-              <div class="w-5 h-5 border border-gray-600 rounded bg-kingdom-dark flex items-center justify-center transition-colors duration-200">
-                <i class="fa-solid fa-check text-[10px] text-black" v-show="isFirstOffense"></i>
-              </div>
-              <span class="text-sm text-white font-bold group-hover:text-kingdom-gold transition">First Offense Fine (+5M)</span>
-            </label>
           </div>
         </div>
 
@@ -321,7 +313,6 @@ const applyDiscount = ref(false);
 const discountPercentage = ref(10); 
 const isTop100 = ref(false);
 const isTribunal = ref(false);
-const isFirstOffense = ref(false);
 const cart = ref([]);
 const cartIdCounter = ref(1);
 
@@ -463,7 +454,6 @@ const finalTotal = computed(() => {
     let total = totalBase.value;
     if (isTop100.value) total *= 2;
     if (isTribunal.value) total *= 2;
-    if (isFirstOffense.value) total += 5000000;
     
     return total;
 });
@@ -625,16 +615,14 @@ const copyShortReport = () => {
 const generateAndCopy = (date, itemsList, totalFormatted, isShort) => {
   const statusTop100 = isTop100.value ? "YES (+100%)" : "NO";
   const statusTribunal = isTribunal.value ? "YES (+100%)" : "NO";
-  const statusFirstOffense = isFirstOffense.value ? "YES (+5M Fixed)" : "NO";
 
   const reportTitle = isShort ? "SUMMARY DEBIT MEMO" : "DEBIT MEMO";
 
   const report = `
 ========================================
-      KINGDOM #290 - ${reportTitle}
+      TOTAL BATTLE - ${reportTitle}
 ========================================
 DATE: ${date}
-
 ITEMIZED BREAKDOWN:
 ----------------------------------------
 ${itemsList}
@@ -644,8 +632,6 @@ SUBTOTAL: ${formatCompact(totalBase.value)}
 AGGRAVATING FACTORS / FEES:
 > Top 100 Offender: ${statusTop100}
 > Court Litigation: ${statusTribunal}
-> First Offense Fine: ${statusFirstOffense}
-
 ========================================
 TOTAL DUE:  ${totalFormatted} SILVER
 ========================================

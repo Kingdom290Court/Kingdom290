@@ -52,10 +52,11 @@
                 <li><strong>Top 100 Offender:</strong> Multiplies total by <strong class="text-white">2x</strong>.</li>
                 <li><strong>Court Litigation:</strong> Multiplies total by <strong class="text-white">2x</strong>.</li>
                 <li>
-                  <strong>First Offense Fine:</strong> Adds a fixed <strong class="text-white">5M Silver</strong> fine.
+                  <s><strong>First Offense Fine:</strong> Adds a fixed <strong class="text-white">5M Silver</strong> fine.
                   <p class="text-xs text-gray-500 ml-5 mt-1 italic">
                     * This factor applies <strong>ONLY</strong> to the first incident of <strong>Player Gold Mine</strong> theft or <strong>Dragon Mound (DM)</strong> theft.
-                  </p>
+                  </p></s> 
+                  <p class="text-kingdom-blood font-bold mb-1">^^ Removed by a vote of the council.</p>
                 </li>
               </ul>
             </div>

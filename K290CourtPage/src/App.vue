@@ -4,6 +4,7 @@ import RulesGrid from './components/RulesGrid.vue';
 import PenaltyCalculator from './components/PenaltyCalculator.vue';
 import CourtNotice from './components/CourtNotice.vue';
 import CalculatorGuide from './components/CalculatorGuide.vue';
+import KofiSupport from './components/KofiSupport.vue';
 
 
 </script>
@@ -18,6 +19,8 @@ import CalculatorGuide from './components/CalculatorGuide.vue';
     <CourtNotice />
     <!-- Guia de Uso da Calculadora -->
     <CalculatorGuide />
+
+    <KofiSupport />
     
     <footer class="mt-20 text-center text-gray-600 text-xs border-t border-gray-900 pt-8 pb-8">
       <p class="font-display text-kingdom-goldDim mb-2">Kingdom #290 &bull; Total Battle</p>
