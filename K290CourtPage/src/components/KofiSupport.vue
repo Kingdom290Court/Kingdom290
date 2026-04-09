@@ -13,14 +13,14 @@
       <!-- Texto -->
       <h3 class="font-display text-xl text-white mb-2 relative z-10">Buy me a coffee</h3>
       <p class="text-sm text-gray-400 mb-6 leading-relaxed relative z-10">
-        If this tool saved you time and helped maintain order in Kingdom #290, consider supporting the developer!
+        If this tool saved you time and helped maintain order in our Kingdom, consider supporting the developer!
       </p>
       
       <!-- Botão Ko-fi -->
       <a href="https://ko-fi.com/jramso" target="_blank" rel="noopener noreferrer" 
          class="relative z-10 inline-flex items-center justify-center gap-3 bg-[#FF5E5B] hover:bg-[#FF5E5B]/90 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(255,94,91,0.4)] hover:shadow-[0_0_25px_rgba(255,94,91,0.6)] transform hover:-translate-y-1">
         <img src="https://storage.ko-fi.com/cdn/cup-border.png" class="w-5 h-5 drop-shadow-md" alt="Ko-fi Cup" />
-        <span>Support JRamso | BR Hakon</span>
+        <span>Support JRamso | BR Odin Hakon</span>
       </a>
       
     </div>
